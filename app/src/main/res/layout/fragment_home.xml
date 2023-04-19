@@ -1,22 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/backgroundmobileline"
+    android:orientation="horizontal"
     tools:context=".Fragments.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ImageButton
+        android:id="@+id/qrButton"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="88dp"
+        android:background="@drawable/qr_button_animation_shape"
+        android:contentDescription="Skanuj QR"
+        android:src="@drawable/baseline_qr_code_scanner_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="4dp"
+        android:background="#51CB7D"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499"
+        tools:layout_editor_absoluteX="0dp" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            tools:layout_editor_absoluteX="117dp"
-            tools:layout_editor_absoluteY="144dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/qrLabel"
+        android:layout_width="107dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="16dp"
+        android:text="Skanuj QR"
+        android:textAlignment="center"
+        android:textColor="#19452e"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/qrButton"
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintStart_toStartOf="@+id/qrButton"
+        app:layout_constraintTop_toBottomOf="@+id/qrButton" />
 
-</FrameLayout>
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="143dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#63c4ab"
+        android:text="Zacznij grę"
+        android:textAllCaps="true"
+        android:textColor="#19452e"
+        app:layout_constraintEnd_toEndOf="@+id/qrInput"
+        app:layout_constraintStart_toStartOf="@+id/qrInput"
+        app:layout_constraintTop_toBottomOf="@+id/qrInput" />
+
+    <EditText
+        android:id="@+id/qrInput"
+        android:layout_width="220dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="56dp"
+        android:backgroundTint="#19452e"
+        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        android:ems="10"
+        android:hint="Wpisz kod"
+        android:inputType="text|textFilter|textCapCharacters"
+        android:maxLength="5"
+        android:textAlignment="center"
+        android:textColorHint="#19452e"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menuLabel" />
+
+    <TextView
+        android:id="@+id/menuLabel"
+        android:layout_width="300dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="44dp"
+        android:fontFamily="serif-monospace"
+        android:gravity="center_horizontal"
+        android:text="Wybierz sposób dołączenia do gry"
+        android:textAlignment="center"
+        android:textColor="#19452e"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+

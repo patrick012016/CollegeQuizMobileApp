@@ -26,7 +26,7 @@
         android:fontFamily="serif-monospace"
         android:text="Quizazu"
         android:textAlignment="center"
-        android:textColor="#00C289"
+        android:textColor="#8ADDD0"
         android:textSize="48sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

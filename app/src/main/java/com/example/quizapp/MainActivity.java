@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     TextView passwordInput;
     Button loginBtn;
     String message = "Podaj poprawne dane!";
-
     UserLocalStore userLocalStore;
 
     @Override
