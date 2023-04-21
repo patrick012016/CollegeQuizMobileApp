@@ -11,18 +11,20 @@
 
     <TextView
         android:id="@+id/logoLabel"
-        android:layout_width="231dp"
+        android:layout_width="wrap_content"
         android:layout_height="57dp"
-        android:layout_marginTop="120dp"
         android:fontFamily="serif-monospace"
         android:text="Quizazu"
         android:textAlignment="center"
         android:textColor="#19452e"
         android:textSize="48sp"
         android:textStyle="bold"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
 
     <Button
         android:id="@+id/loginBtn"
@@ -46,10 +48,11 @@
         android:backgroundTint="#19452e"
         android:ems="10"
         android:hint="Podaj login"
-        android:inputType="text|textPassword"
+        android:inputType="text"
         android:maxLength="25"
         android:textAlignment="center"
         android:textColorHint="#19452e"
+        android:textColor="#19452e"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logoLabel" />
@@ -66,6 +69,7 @@
         android:maxLength="25"
         android:textAlignment="center"
         android:textColorHint="#19452e"
+        android:textColor="#19452e"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,11 +79,12 @@
         android:id="@+id/registerLinkLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="64dp"
         android:text="Nie masz konta?"
         android:textAlignment="center"
         android:textColor="#19452e"
         android:textSize="18sp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
@@ -92,6 +97,7 @@
         android:textAlignment="center"
         android:textColor="#19452e"
         android:textSize="18sp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerLinkLabel" />

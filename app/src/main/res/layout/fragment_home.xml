@@ -6,41 +6,32 @@
     android:layout_height="match_parent"
     android:background="@drawable/backgroundmobileline"
     android:orientation="horizontal"
+    app:layout_constraintGuide_percent="50"
     tools:context=".Fragments.HomeFragment">
 
     <ImageButton
         android:id="@+id/qrButton"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="88dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:background="@drawable/qr_button_animation_shape"
         android:contentDescription="Skanuj QR"
         android:src="@drawable/baseline_qr_code_scanner_24"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:background="#51CB7D"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintTop_toTopOf="@+id/guideline50percent" />
 
     <TextView
         android:id="@+id/qrLabel"
-        android:layout_width="107dp"
-        android:layout_height="27dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Skanuj QR"
         android:textAlignment="center"
         android:textColor="#19452e"
         android:textSize="20sp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintEnd_toEndOf="@+id/qrButton"
         app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="@+id/qrButton"
@@ -48,8 +39,8 @@
 
     <Button
         android:id="@+id/startButton"
-        android:layout_width="143dp"
-        android:layout_height="58dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:backgroundTint="#63c4ab"
         android:text="Zacznij grę"
@@ -63,35 +54,45 @@
         android:id="@+id/qrInput"
         android:layout_width="220dp"
         android:layout_height="59dp"
-        android:layout_marginTop="56dp"
-        android:backgroundTint="#19452e"
         android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         android:ems="10"
         android:hint="Wpisz kod"
         android:inputType="text|textFilter|textCapCharacters"
         android:maxLength="5"
         android:textAlignment="center"
+        android:textIsSelectable="false"
+        android:backgroundTint="#19452e"
         android:textColorHint="#19452e"
+        android:textColor="#19452e"
+        app:layout_constraintBottom_toTopOf="@+id/guideline50percent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/menuLabel" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45" />
 
     <TextView
         android:id="@+id/menuLabel"
-        android:layout_width="300dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="44dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
         android:fontFamily="serif-monospace"
-        android:gravity="center_horizontal"
         android:text="Wybierz sposób dołączenia do gry"
         android:textAlignment="center"
         android:textColor="#19452e"
         android:textSize="28sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/qrInput"
+        app:layout_constraintEnd_toEndOf="@+id/qrInput"
+        app:layout_constraintStart_toStartOf="@+id/qrInput" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline50percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
