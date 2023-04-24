@@ -12,6 +12,7 @@
         android:label="Quizazu"
         android:supportsRtl="true"
         android:theme="@style/Theme.QuizApp"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
             android:name=".MenuActivity"

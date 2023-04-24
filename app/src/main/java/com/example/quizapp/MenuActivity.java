@@ -1,30 +1,27 @@
 package com.example.quizapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.quizapp.Fragments.HomeFragment;
+import com.example.quizapp.Fragments.ItemViewModel;
 import com.example.quizapp.Fragments.ProfileFragment;
 import com.example.quizapp.Fragments.SettingsFragment;
 import com.example.quizapp.LocalDataBase.UserLocalStore;
 import com.example.quizapp.databinding.ActivityMenuBinding;
 
-import io.github.g00fy2.quickie.QRResult;
-import io.github.g00fy2.quickie.ScanQRCode;
-import io.github.g00fy2.quickie.config.BarcodeFormat;
-
 public class MenuActivity extends AppCompatActivity {
 
     UserLocalStore userLocalStore;
     ActivityMenuBinding binding;
+    ItemViewModel viewModel;
 
     //==============================================================================================
 
@@ -39,6 +36,10 @@ public class MenuActivity extends AppCompatActivity {
          */
         userLocalStore = new UserLocalStore(this);
         replaceFragment(new HomeFragment());
+        viewModel = new ViewModelProvider(this).get(ItemViewModel.class);
+        viewModel.getSelectedItem().observe(this, item -> {
+            xd(item);
+        });
 
         /*
          * Podmienianie fragmentów widoku
@@ -76,5 +77,12 @@ public class MenuActivity extends AppCompatActivity {
     public void test(View view) {
         userLocalStore.clearUserData();
         userLocalStore.setUserLoggedIn(false);
+    }
+
+    //==============================================================================================
+
+    public void xd(String item) {
+        Toast.makeText(MenuActivity.this,
+                item, Toast.LENGTH_LONG).show();
     }
 }

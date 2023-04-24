@@ -6,6 +6,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,6 @@ import com.example.quizapp.R;
 import io.github.g00fy2.quickie.QRResult;
 import io.github.g00fy2.quickie.ScanQRCode;
 
-
 public class HomeFragment extends Fragment {
 
     /*
@@ -28,7 +28,7 @@ public class HomeFragment extends Fragment {
      */
     ImageButton qrButton;
     TextView test;
-
+    ItemViewModel viewModel;
     /*
      * Elementy odpowiedzialne za biblioteke QR
      * https://github.com/G00fY2/quickie
@@ -87,6 +87,8 @@ public class HomeFragment extends Fragment {
             code = ((QRResult.QRSuccess) result).getContent().getRawValue();
         } else if (result == QRResult.QRUserCanceled.INSTANCE) {
             Toast.makeText(getActivity(), "Anulowano skanowanie", Toast.LENGTH_SHORT).show();
+            viewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
+            viewModel.setData("dziala widzowie pogchmip");
         } else if (result == QRResult.QRMissingPermission.INSTANCE) {
             Toast.makeText(getActivity(), "Brak zezwolenia!", Toast.LENGTH_SHORT).show();
         } else if (result instanceof QRResult.QRError) {
