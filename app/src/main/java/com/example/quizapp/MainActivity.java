@@ -6,12 +6,14 @@ import static com.example.quizapp.Utils.Constans.JSON;
 import static com.example.quizapp.Utils.Constans.message;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.motion.widget.MotionLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     TextView errorPassword;
     TextView passwordInput;
     Button loginBtn;
+    MotionLayout motionLayout;
+    ProgressBar progressBar;
 
     UserLocalStore userLocalStore;
     private final Gson gson = new Gson();
@@ -58,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
         passwordInput = findViewById(R.id.passwordInput);
         errorPassword = findViewById(R.id.spanPassword);
         loginBtn = findViewById(R.id.loginBtn);
+        motionLayout = findViewById(R.id.motionLayout);
+        progressBar = findViewById(R.id.progressBarAuth);
 
         /*
          * Parametry startowe elementów wiodku
@@ -107,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
                     .header("Connection", "close")
                     .build();
 
+            motionLayout.setAlpha(0.4f);
+            progressBar.setVisibility(View.VISIBLE);
+
             client.newCall(request).enqueue(new Callback() {
 
                 /*
@@ -118,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            progressBar.setVisibility(View.GONE);
+                            motionLayout.setAlpha(1);
                             Toast.makeText(MainActivity.this,
                                     "Nie udało nawiązać połączenia", Toast.LENGTH_LONG).show();
                         }
@@ -126,6 +137,13 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressBar.setVisibility(View.GONE);
+                            motionLayout.setAlpha(1);
+                        }
+                    });
                     if (response.code() == 401) {
                         runOnUiThread(new Runnable() {
                             @Override

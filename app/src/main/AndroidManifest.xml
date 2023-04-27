@@ -15,6 +15,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Quiz_Activity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".MenuActivity"
             android:exported="false"
             android:screenOrientation="portrait" />

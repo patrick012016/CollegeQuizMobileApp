@@ -2,6 +2,7 @@
 <androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/motionLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/backgroundmobiletopbottom"
@@ -9,10 +10,24 @@
     app:layoutDescription="@xml/activity_main_scene"
     tools:context=".MainActivity">
 
+    <ProgressBar
+        android:id="@+id/progressBarAuth"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:translationZ="1dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
+
     <TextView
         android:id="@+id/logoLabel"
         android:layout_width="wrap_content"
-        android:layout_height="57dp"
+        android:layout_height="wrap_content"
         android:fontFamily="serif-monospace"
         android:text="Quizazu"
         android:textAlignment="center"
@@ -51,8 +66,8 @@
         android:inputType="text"
         android:maxLength="25"
         android:textAlignment="center"
-        android:textColorHint="#19452e"
         android:textColor="#19452e"
+        android:textColorHint="#19452e"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logoLabel" />
@@ -68,8 +83,8 @@
         android:inputType="textPassword"
         android:maxLength="25"
         android:textAlignment="center"
-        android:textColorHint="#19452e"
         android:textColor="#19452e"
+        android:textColorHint="#19452e"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"

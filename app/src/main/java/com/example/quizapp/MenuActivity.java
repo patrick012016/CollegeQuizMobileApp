@@ -1,5 +1,6 @@
 package com.example.quizapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -84,5 +85,9 @@ public class MenuActivity extends AppCompatActivity {
     public void xd(String item) {
         Toast.makeText(MenuActivity.this,
                 item, Toast.LENGTH_LONG).show();
+    }
+    public void testwidok(View view) {
+        Intent intent = new Intent(MenuActivity.this, Quiz_Activity.class);
+        startActivity(intent);
     }
 }
