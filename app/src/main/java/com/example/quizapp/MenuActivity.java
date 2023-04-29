@@ -87,7 +87,7 @@ public class MenuActivity extends AppCompatActivity {
                 item, Toast.LENGTH_LONG).show();
     }
     public void testwidok(View view) {
-        Intent intent = new Intent(MenuActivity.this, Quiz_Activity.class);
+        Intent intent = new Intent(MenuActivity.this, LobbyActivity.class);
         startActivity(intent);
     }
 }

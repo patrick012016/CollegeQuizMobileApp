@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Tooltip" parent="Widget.MaterialComponents.Tooltip">
+        <!--This is the Tooltip textAppearance -->
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Tooltip</item>
+        <!--This is the Tooltip Background Color -->
+        <item name="backgroundTint">#00BD7E</item>
+    </style>
+</resources>

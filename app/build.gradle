@@ -30,6 +30,7 @@ android {
 
 dependencies {
     implementation "androidx.cardview:cardview:1.0.0"
+    implementation 'com.microsoft.signalr:signalr:7.0.5'
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
     implementation("io.github.g00fy2.quickie:quickie-bundled:1.6.0")

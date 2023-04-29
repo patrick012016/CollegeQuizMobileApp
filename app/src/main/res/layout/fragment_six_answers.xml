@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GameFragments.SixAnswersFragment">
+
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="5dp"
+        app:columnCount="2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rowCount="3">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardLargeA"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="#f7fef5"
+            app:cardElevation="0dp"
+            app:layout_column="0"
+            app:layout_columnWeight="1"
+            app:layout_row="0"
+            app:layout_rowWeight="0.5">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@drawable/darkgreencard">
+
+                <TextView
+                    android:id="@+id/answerLargeA"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:maxLines="2"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:text="TextVi  dadse asd ad ad adas ad ads "
+                    android:textAlignment="center"
+                    android:textColor="#19452e"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/answerLargeLabelA"
+                    app:layout_constraintVertical_bias="0.15" />
+
+                <TextView
+                    android:id="@+id/answerLargeLabelA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Odpowiedź A"
+                    android:textAlignment="center"
+                    android:textColor="#19452e"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.3" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardLargeB"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="#f7fef5"
+            app:cardElevation="0dp"
+            app:layout_column="1"
+            app:layout_columnWeight="2"
+            app:layout_row="0"
+            app:layout_rowWeight="0.5">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@drawable/tealcard">
+
+                <TextView
+                    android:id="@+id/answerLargeB"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:maxLines="2"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:text="TextView"
+                    android:textAlignment="center"
+                    android:textColor="#19452e"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/answerLargeLabelB"
+                    app:layout_constraintVertical_bias="0.15" />
+
+                <TextView
+                    android:id="@+id/answerLargeLabelB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Odpowiedź B"
+                    android:textAlignment="center"
+                    android:textColor="#19452e"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.3" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardLargeC"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="#f7fef5"
+            app:cardElevation="0dp"
+            app:layout_column="0"
+            app:layout_columnWeight="2"
+            app:layout_row="1"
+            app:layout_rowWeight="0.5">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@drawable/bluecard">
+
+                <TextView
+                    android:id="@+id/answerLargeC"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:maxLines="2"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:text="TextView"
+                    android:textAlignment="center"
+                    android:textColor="#19452e"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/answerLargeLabelC"
+                    app:layout_constraintVertical_bias="0.15" />
+
+                <TextView
+                    android:id="@+id/answerLargeLabelC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Odpowiedź C"
+                    android:textAlignment="center"
+                    android:textColor="#19452e"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.3" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardLargeD"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="#f7fef5"
+            app:cardElevation="0dp"
+            app:layout_column="1"
+            app:layout_columnWeight="2"
+            app:layout_row="1"
+            app:layout_rowWeight="0.5">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@drawable/olivecard">
+
+                <TextView
+                    android:id="@+id/answerLargeD"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:maxLines="2"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:text="TextView"
+                    android:textAlignment="center"
+                    android:textColor="#19452e"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/answerLargeLabelD"
+                    app:layout_constraintVertical_bias="0.15" />
+
+                <TextView
+                    android:id="@+id/answerLargeLabelD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Odpowiedź D"
+                    android:textAlignment="center"
+                    android:textColor="#19452e"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.3" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardLargeE"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="#f7fef5"
+            app:cardElevation="0dp"
+            app:layout_column="0"
+            app:layout_columnWeight="1"
+            app:layout_row="2"
+            app:layout_rowWeight="0.5">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@drawable/greencard">
+
+                <TextView
+                    android:id="@+id/answerLargeE"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:maxLines="2"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:text="TextVi  dadse asd ad ad adas ad ads "
+                    android:textAlignment="center"
+                    android:textColor="#19452e"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/answerLargeLabelE"
+                    app:layout_constraintVertical_bias="0.15" />
+
+                <TextView
+                    android:id="@+id/answerLargeLabelE"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Odpowiedź E"
+                    android:textAlignment="center"
+                    android:textColor="#19452e"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.3" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardLargeF"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardBackgroundColor="#f7fef5"
+            app:cardElevation="0dp"
+            app:layout_column="1"
+            app:layout_columnWeight="1"
+            app:layout_row="2"
+            app:layout_rowWeight="0.5">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:background="@drawable/darkbluecard">
+
+                <TextView
+                    android:id="@+id/answerLargeF"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:maxLines="2"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:text="TextVi"
+                    android:textAlignment="center"
+                    android:textColor="#19452e"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/answerLargeLabelF"
+                    app:layout_constraintVertical_bias="0.15" />
+
+                <TextView
+                    android:id="@+id/answerLargeLabelF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Odpowiedź F"
+                    android:textAlignment="center"
+                    android:textColor="#19452e"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:autoSizeTextType="uniform"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.3" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+    </androidx.gridlayout.widget.GridLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

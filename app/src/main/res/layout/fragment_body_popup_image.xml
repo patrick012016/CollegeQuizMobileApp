@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GameFragments.BodyPopupImageFragment" >
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonPopImage"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:background="@drawable/popup_button_animation"
+        android:backgroundTint="#63c4ab"
+        android:gravity="top|center"
+        android:maxLines="1"
+        android:onClick="testpop"
+        android:paddingTop="15dp"
+        android:text="Obraz"
+        android:textAllCaps="true"
+        android:textColor="#19452e"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
