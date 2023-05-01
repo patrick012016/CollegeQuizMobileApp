@@ -7,11 +7,12 @@
     tools:context=".GameFragments.BodyImageFragment" >
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageQuizBody"
         android:layout_width="220dp"
         android:layout_height="220dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:clickable="true"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/watermarkdarkdefualt" />
 </androidx.constraintlayout.widget.ConstraintLayout>

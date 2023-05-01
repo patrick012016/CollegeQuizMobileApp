@@ -1,5 +1,9 @@
 package com.example.quizapp.Fragments;
 
+import static com.example.quizapp.Utils.Constans.CODE_REGEX;
+
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -12,11 +16,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.quizapp.LobbyActivity;
+import com.example.quizapp.MenuActivity;
 import com.example.quizapp.R;
+
+import java.util.regex.Pattern;
 
 import io.github.g00fy2.quickie.QRResult;
 import io.github.g00fy2.quickie.ScanQRCode;
@@ -27,8 +37,9 @@ public class HomeFragment extends Fragment {
      * Inicjowanie elementów z widoku
      */
     ImageButton qrButton;
-    TextView test;
-    ItemViewModel viewModel;
+    EditText codeInput;
+    Button startGame;
+    String token;
     /*
      * Elementy odpowiedzialne za biblioteke QR
      * https://github.com/G00fY2/quickie
@@ -55,7 +66,23 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         qrButton = getView().findViewById(R.id.qrButton);
-        test = getView().findViewById(R.id.qrLabel);
+        codeInput = getView().findViewById(R.id.qrInput);
+        startGame = getView().findViewById(R.id.startButton);
+        startGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                token = codeInput.getText().toString();
+                if (codeInput.getText().toString() != null && Pattern.matches(CODE_REGEX, token)) {
+
+                    Intent intent = new Intent(getActivity(), LobbyActivity.class);
+                    intent.putExtra("token", token);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(getActivity(), "Podaj odpowiedni kod!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         qrButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,14 +108,18 @@ public class HomeFragment extends Fragment {
      * https://github.com/G00fY2/quickie
      */
     private void showQR(QRResult result) {
-        String code = "";
-
         if (result instanceof QRResult.QRSuccess) {
-            code = ((QRResult.QRSuccess) result).getContent().getRawValue();
+            token = ((QRResult.QRSuccess) result).getContent().getRawValue();
+            if (token != null && Pattern.matches(CODE_REGEX, token)) {
+                Intent intent = new Intent(getActivity(), LobbyActivity.class);
+                intent.putExtra("token", token);
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(getActivity(), "Zeskanuj odpowiedni kod!", Toast.LENGTH_SHORT).show();
+            }
         } else if (result == QRResult.QRUserCanceled.INSTANCE) {
             Toast.makeText(getActivity(), "Anulowano skanowanie", Toast.LENGTH_SHORT).show();
-            viewModel = new ViewModelProvider(requireActivity()).get(ItemViewModel.class);
-            viewModel.setData("dziala widzowie pogchmip");
         } else if (result == QRResult.QRMissingPermission.INSTANCE) {
             Toast.makeText(getActivity(), "Brak zezwolenia!", Toast.LENGTH_SHORT).show();
         } else if (result instanceof QRResult.QRError) {

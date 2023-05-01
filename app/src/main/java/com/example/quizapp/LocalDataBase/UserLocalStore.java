@@ -3,10 +3,22 @@ package com.example.quizapp.LocalDataBase;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.quizapp.hubs.HubConnectivity;
+
 public class UserLocalStore {
 
+    private static UserLocalStore instance;
     public static final String SP_NAME = "userDetails";
     SharedPreferences userLocalDatabase;
+
+    //==============================================================================================
+
+    public static UserLocalStore getInstance(Context context)
+    {
+        if (instance == null)
+            instance = new UserLocalStore(context);
+        return instance;
+    }
 
     //==============================================================================================
 
@@ -14,9 +26,16 @@ public class UserLocalStore {
      * Klasa odpowiedzielna za przechowywanie danych oraz obsługę zalogowywania oraz wylogowywania
      * użytkownika z aplikacji
      */
-    public UserLocalStore(Context context) {
+    private UserLocalStore(Context context) {
         userLocalDatabase = context.getSharedPreferences(SP_NAME, 0);
     }
+
+    //==============================================================================================
+
+    public String getUserLocalDatabase() {
+        return userLocalDatabase.getString("token", "");
+    }
+
 
     //==============================================================================================
 

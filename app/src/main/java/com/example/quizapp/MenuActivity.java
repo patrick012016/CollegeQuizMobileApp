@@ -1,5 +1,7 @@
 package com.example.quizapp;
 
+import static com.example.quizapp.Utils.Constans.HUBURL;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.quizapp.Fragments.HomeFragment;
@@ -17,12 +20,14 @@ import com.example.quizapp.Fragments.ProfileFragment;
 import com.example.quizapp.Fragments.SettingsFragment;
 import com.example.quizapp.LocalDataBase.UserLocalStore;
 import com.example.quizapp.databinding.ActivityMenuBinding;
+import com.example.quizapp.hubs.HubConnectivity;
+import com.microsoft.signalr.HubConnection;
+import com.microsoft.signalr.HubConnectionBuilder;
 
 public class MenuActivity extends AppCompatActivity {
 
     UserLocalStore userLocalStore;
     ActivityMenuBinding binding;
-    ItemViewModel viewModel;
 
     //==============================================================================================
 
@@ -31,16 +36,11 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         /*
          * Parametry startowe elementów
          */
-        userLocalStore = new UserLocalStore(this);
+        userLocalStore = UserLocalStore.getInstance(this);
         replaceFragment(new HomeFragment());
-        viewModel = new ViewModelProvider(this).get(ItemViewModel.class);
-        viewModel.getSelectedItem().observe(this, item -> {
-            xd(item);
-        });
 
         /*
          * Podmienianie fragmentów widoku
@@ -82,12 +82,8 @@ public class MenuActivity extends AppCompatActivity {
 
     //==============================================================================================
 
-    public void xd(String item) {
-        Toast.makeText(MenuActivity.this,
-                item, Toast.LENGTH_LONG).show();
-    }
     public void testwidok(View view) {
-        Intent intent = new Intent(MenuActivity.this, LobbyActivity.class);
+        Intent intent = new Intent(MenuActivity.this, Quiz_Activity.class);
         startActivity(intent);
     }
 }

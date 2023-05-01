@@ -20,7 +20,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"/>
 
     <TextView
         android:id="@+id/textLabelSlider"
@@ -36,4 +37,17 @@
         app:layout_constraintBottom_toTopOf="@+id/discreteRangeSlider"
         app:layout_constraintEnd_toEndOf="@+id/discreteRangeSlider"
         app:layout_constraintStart_toStartOf="@+id/discreteRangeSlider" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#63c4ab"
+        android:text="Zatwierdź"
+        android:textAllCaps="true"
+        android:textColor="#19452e"
+        app:layout_constraintEnd_toEndOf="@+id/discreteRangeSlider"
+        app:layout_constraintStart_toStartOf="@+id/discreteRangeSlider"
+        app:layout_constraintTop_toBottomOf="@+id/discreteRangeSlider" />
 </androidx.constraintlayout.widget.ConstraintLayout>

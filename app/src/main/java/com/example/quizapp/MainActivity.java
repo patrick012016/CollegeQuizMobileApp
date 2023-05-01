@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
          * Parametry startowe elementów wiodku
          */
         registrationText.setMovementMethod(LinkMovementMethod.getInstance());
-        userLocalStore = new UserLocalStore(this);
+        userLocalStore = UserLocalStore.getInstance(this);
     }
 
     //==============================================================================================
