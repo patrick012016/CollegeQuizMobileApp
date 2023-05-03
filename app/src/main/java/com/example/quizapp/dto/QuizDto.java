@@ -10,14 +10,21 @@ public class QuizDto {
     public long questionType;
     public ArrayList<String> answers;
     public int time_sec;
-
     public boolean is_range;
     public int step;
     public int min;
     public int max;
     public int min_counted;
     public int max_counted;
+    public String image_url;
 
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
 
     public long getQuestionId() {
         return questionId;

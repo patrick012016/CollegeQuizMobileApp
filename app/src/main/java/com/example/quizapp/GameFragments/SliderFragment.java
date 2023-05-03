@@ -1,30 +1,56 @@
 package com.example.quizapp.GameFragments;
 
+import static com.example.quizapp.Utils.Constans.HUBURL;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
+import com.example.quizapp.LocalDataBase.UserLocalStore;
 import com.example.quizapp.R;
+import com.example.quizapp.dto.QuizDto;
+import com.example.quizapp.hubs.HubConnectivity;
 import com.google.android.material.slider.RangeSlider;
-import com.google.android.material.slider.Slider;
+import com.google.gson.Gson;
+
+import java.io.IOException;
+import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class SliderFragment extends Fragment {
-
+    private HubConnectivity hubConnectivity = HubConnectivity.getInstance(HUBURL);
+    String qeusetionId, mydataAnswers;
     RangeSlider rangeSlider;
-    public SliderFragment() {
-        // Required empty public constructor
-    }
+    QuizDto quizDto;
+    Button buttonSend;
 
+    public SliderFragment() { }
 
     public static SliderFragment newInstance() {
         SliderFragment fragment = new SliderFragment();
         return fragment;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        rangeSlider.setEnabled(true);
+        rangeSlider.setClickable(true);
+        rangeSlider.setFocusable(true);
     }
 
     @Override
@@ -35,8 +61,55 @@ public class SliderFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rangeSlider = getView().findViewById(R.id.discreteRangeSlider);
-        rangeSlider.setValues(30f, 90.0f);
+        Bundle bundle = this.getArguments();
+        rangeSlider = getView().findViewById(R.id.rangeSlider);
+        buttonSend = getView().findViewById(R.id.sendSlider);
+
+        mydataAnswers = bundle.getString("data");
+        qeusetionId = bundle.getString("id");
+
+        quizDto = new Gson().fromJson(mydataAnswers, QuizDto.class);
+        rangeSlider.setValueFrom((float)quizDto.getMin());
+        rangeSlider.setValueTo((float)quizDto.getMax());
+        rangeSlider.setStepSize(quizDto.getStep());
+        rangeSlider.setValues((float)quizDto.getMin(), (float)quizDto.getMax());
+
+        buttonSend.setOnClickListener(v -> {
+            List<Float> answerValues = rangeSlider.getValues();
+            float min = answerValues.get(0);
+            float max = answerValues.get(1);
+            answerSend((int)min, (int)max);
+            rangeSlider.setEnabled(false);
+            rangeSlider.setClickable(false);
+            rangeSlider.setFocusable(false);
+        });
+
+    }
+
+    public void answerSend(int min, int max) {
+        String ipConnection = hubConnectivity.getIpConenction();
+        OkHttpClient client = new OkHttpClient();
+
+        String url = "https://dominikpiskor.pl/api/v1/dotnet/QuizSessionAPI/SendAnswerJwt/" +
+                ipConnection + "/" + qeusetionId + "/" + "r" + min + "," + max + "/false";
+        Request request = new Request.Builder()
+                .url(url)
+                .method("post", null)
+                .header("Content-Type", "application/json")
+                .header("Accept", "application/json")
+                .header("Authorization", "Bearer " + UserLocalStore.getInstance(getContext()).getUserLocalDatabase())
+                .header("Connection", "close")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            /*
+             * Jeśli połączenie nie zostanie nawiązane z serwerem
+             */
+            @Override
+            public void onFailure(Call call, IOException e) { e.printStackTrace();}
+            @Override
+            public void onResponse(Call call, Response response) throws IOException { }
+        });
     }
 
     @Override

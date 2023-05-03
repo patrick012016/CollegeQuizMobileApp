@@ -29,7 +29,6 @@ public class MenuActivity extends AppCompatActivity {
 
     UserLocalStore userLocalStore;
     ActivityMenuBinding binding;
-    LinearLayout linearLayout;
 
     //==============================================================================================
 
@@ -37,7 +36,6 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMenuBinding.inflate(getLayoutInflater());
-        linearLayout = findViewById(R.id.linia);
         setContentView(binding.getRoot());
         /*
          * Parametry startowe elementów

@@ -1,20 +1,20 @@
 package com.example.quizapp.dto;
 
 public class TimerDto {
-    long Elapsed;
+    long Remaining;
     long Total;
 
-    public TimerDto(long elapsed, long total) {
-        Elapsed = elapsed;
+    public TimerDto(long remaining, long total) {
+        Remaining = remaining;
         Total = total;
     }
 
-    public long getElapsed() {
-        return Elapsed;
+    public long getRemaining() {
+        return Remaining;
     }
 
-    public void setElapsed(long elapsed) {
-        Elapsed = elapsed;
+    public void setRemaining(long remaining) {
+        Remaining = remaining;
     }
 
     public long getTotal() {

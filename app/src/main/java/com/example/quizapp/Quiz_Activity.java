@@ -2,52 +2,41 @@ package com.example.quizapp;
 
 import static com.example.quizapp.Utils.Constans.HUBURL;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.quizapp.Fragments.ItemViewModel;
 import com.example.quizapp.GameFragments.BodyImageFragment;
 import com.example.quizapp.GameFragments.BodyPopupImageFragment;
 import com.example.quizapp.GameFragments.FourAnswersFragment;
 import com.example.quizapp.GameFragments.SixAnswersFragment;
 import com.example.quizapp.GameFragments.SliderFragment;
 import com.example.quizapp.GameFragments.TrueFalseFragment;
-import com.example.quizapp.dto.LobbyDto;
 import com.example.quizapp.dto.QuizDto;
 import com.example.quizapp.dto.QustionType;
 import com.example.quizapp.dto.ResultDto;
 import com.example.quizapp.dto.TimerDto;
 import com.example.quizapp.hubs.HubConnectivity;
 import com.google.gson.Gson;
-import com.microsoft.signalr.HubConnection;
-import com.microsoft.signalr.HubConnectionBuilder;
 
+import java.io.IOException;
 import java.io.Serializable;
-import java.sql.Array;
-import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class Quiz_Activity extends AppCompatActivity {
 
-    ItemViewModel viewModel;
     QuizDto quizDto;
     private final Gson gson = new Gson();
     private HubConnectivity hubConnectivity = HubConnectivity.getInstance(HUBURL);
@@ -65,7 +54,6 @@ public class Quiz_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-
         /*
          * Inicjowanie elementów z widoku
          */
@@ -76,118 +64,65 @@ public class Quiz_Activity extends AppCompatActivity {
 
     }
 
-//    @Override
-//    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-//        super.onRestoreInstanceState(savedInstanceState);
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        fragmentManager.executePendingTransactions();
-//    }
-
-//    @Override
-//    public void onRestoreInstanceState(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-//        super.onRestoreInstanceState(savedInstanceState, persistentState);
-//    }
-
-    public void game()
-    {
-
+    public void game() {
         hubConnectivity.onGame(message -> {
+
             bundle = new Bundle();
-            quizDto  = gson.fromJson(message, QuizDto.class);
+            quizDto = gson.fromJson(message, QuizDto.class);
             String jsonList = gson.toJson(quizDto.answers);
+            String jsonDataSlider = gson.toJson(quizDto);
 
-
-            switch (QustionType.parseToEnum(quizDto.getQuestionType()))
-            {
-                case SINGLE_FOUR_ANSWERS:
-                {
-                    System.out.println("test2");
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
+            switch (QustionType.parseToEnum(quizDto.getQuestionType())) {
+                case SINGLE_FOUR_ANSWERS: {
+                    runOnUiThread(() -> {
                         setDataQuiz();
                         timerQuestion();
-                    }
-                });
-                    System.out.println("420");
-                    replaceFragment(new FourAnswersFragment(), R.id.quizFrameLayout, new BodyImageFragment(), R.id.bodyFrameLayout,
-                            jsonList, Long.toString(quizDto.getQuestionId()));
-                    System.out.println("421");
-                  //  replaceFragmentWithData(new FourAnswersFragment(), R.id.quizFrameLayout, jsonList, Long.toString(quizDto.getQuestionId()));
-                    System.out.println("test3333333333333333333333");
+                    });
+                    replaceFragment(new FourAnswersFragment(), R.id.quizFrameLayout, new BodyImageFragment(),
+                            R.id.bodyFrameLayout, jsonList, Long.toString(quizDto.getQuestionId()));
                     break;
                 }
-
-                case TRUE_FALSE:
-                {
-                    System.out.println("test1");
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            setDataQuiz();
-                            timerQuestion();
-                        }
+                case TRUE_FALSE: {
+                    runOnUiThread(() -> {
+                        setDataQuiz();
+                        timerQuestion();
                     });
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            replaceFragment(new TrueFalseFragment(), R.id.quizFrameLayout, new BodyImageFragment(), R.id.bodyFrameLayout, jsonList, Long.toString(quizDto.getQuestionId()));
-
-                        }
+                    replaceFragment(new TrueFalseFragment(), R.id.quizFrameLayout, new BodyImageFragment(),
+                            R.id.bodyFrameLayout, jsonList, Long.toString(quizDto.getQuestionId()));
+                    break;
+                }
+                case SINGLE_SIX_ANSWERS: {
+                    runOnUiThread(() -> {
+                        setDataQuiz();
+                        timerQuestion();
                     });
 
-
-
+                    replaceFragment(new SixAnswersFragment(), R.id.quizLargeFrameLayout, new BodyPopupImageFragment(),
+                            R.id.bodyFrameLayout, jsonList, Long.toString(quizDto.getQuestionId()));
                     break;
                 }
-
-                case SINGLE_SIX_ANSWERS:
-                {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            setDataQuiz();
-                            timerQuestion();
-                        }
+                case MULTIPLE_FOUR_ANSWERS: {
+                    break;
+                }
+                case RANGE: {
+                    runOnUiThread(() -> {
+                        setDataQuiz();
+                        timerQuestion();
                     });
-                 //   replaceFragment(new BodyPopupImageFragment(), R.id.bodyFrameLayout);
-                 //   replaceFragment(new SixAnswersFragment(), R.id.quizLargeFrameLayout);
-
-                    break;
-                }
-
-                case MULTIPLE_FOUR_ANSWERS:
-                {
-                 //   replaceFragment(new BodyImageFragment(), R.id.bodyFrameLayout);
-                //    replaceFragment(new FourAnswersFragment(), R.id.quizFrameLayout);
-
-                    break;
-
-                }
-                case RANGE:
-                {
-              //      replaceFragment(new BodyImageFragment(), R.id.bodyFrameLayout);
-              //      replaceFragment(new SliderFragment(), R.id.quizLargeFrameLayout);
-
+                    replaceFragmentSlider(new SliderFragment(), R.id.quizFrameLayout, new BodyImageFragment(),
+                            R.id.bodyFrameLayout, jsonDataSlider, Long.toString(quizDto.getQuestionId()));
                     break;
                 }
             }
         });
 
         hubConnectivity.onQuestionResult(message -> {
-            ResultDto[] arrayResult  = gson.fromJson(message, ResultDto[].class);
-
-
+            runOnUiThread(() -> questionCounter.setTextColor(Color.parseColor("#f7fef5")));
+            ResultDto[] arrayResult = gson.fromJson(message, ResultDto[].class);
             Intent intent = new Intent(Quiz_Activity.this, ResultActivity.class);
             intent.putExtra("arrayResult", (Serializable) arrayResult);
             startActivity(intent);
-           // finish();
-
         });
-
-
-
 
 
         hubConnectivity.onDisconnect(message -> {
@@ -197,78 +132,69 @@ public class Quiz_Activity extends AppCompatActivity {
         });
     }
 
-    public void setDataQuiz()
-    {
+    public void setDataQuiz() {
         question.setTextColor(Color.parseColor("#19452e"));
         question.setText(quizDto.getQuestion());
 
     }
 
-    public void timerQuestion()
-    {
+    public void timerQuestion() {
         hubConnectivity.onQuestionTimer(messageTime -> {
             TimerDto timer = gson.fromJson(messageTime, TimerDto.class);
             questionCounter.setTextColor(Color.parseColor("#19452e"));
-            questionCounter.setText(String.valueOf(timer.getElapsed()));
+            questionCounter.setText(String.valueOf(timer.getRemaining()));
         });
     }
 
     //==============================================================================================
 
-    private void replaceFragment(Fragment fragment, int frameLayout, Fragment fragment1, int frameLayout1, String data, String id) {
+    private void replaceFragment(Fragment fragmentQuizMain, int frameLayoutQuiz, Fragment fragmentImageMain,
+                                 int frameLayoutImage, String data, String id) {
         bundle.putString("data", data);
         bundle.putString("id", id);
-        fragment.setArguments(bundle);
-        System.out.println("punkreplace0");
+        fragmentQuizMain.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
-        System.out.println("punkreplace1");
-        if(!fragmentManager.isDestroyed()){
-            System.out.println("punkreplace2");
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-
-            System.out.println("punkreplace3");
-            fragmentTransaction.replace(frameLayout, fragment);
-            System.out.println("punkreplace4");
-            fragmentTransaction.replace(frameLayout1, fragment1);
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    fragmentTransaction.commitAllowingStateLoss();
-                }
-            });
-
-            System.out.println("punkreplace5");
+        if (!fragmentManager.isDestroyed()) {
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(frameLayoutQuiz, fragmentQuizMain);
+            fragmentTransaction.replace(frameLayoutImage, fragmentImageMain);
+            runOnUiThread(() -> fragmentTransaction.commitAllowingStateLoss());
         }
-
     }
 
-//    private void replaceFragmentWithData(Fragment fragment, int frameLayout, String data, String id) {
-//        bundle.putString("data", data);
-//        bundle.putString("id", id);
-//        fragment.setArguments(bundle);
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        if(!fragmentManager.isDestroyed()) {
-//
-//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//            fragmentTransaction.replace(frameLayout, fragment);
-//            runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    fragmentTransaction.commitAllowingStateLoss();
-//                    fragmentTransaction.commit();
-//                }
-//            });
-//
-//        }
-//    }
+    private void replaceFragmentSlider(Fragment fragmentQuizMain, int frameLayoutQuiz, Fragment fragmentImageMain,
+                                 int frameLayoutImage, String data, String id) {
+        bundle.putString("data", data);
+        bundle.putString("id", id);
+        fragmentQuizMain.setArguments(bundle);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (!fragmentManager.isDestroyed()) {
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(frameLayoutQuiz, fragmentQuizMain);
+            fragmentTransaction.replace(frameLayoutImage, fragmentImageMain);
+            runOnUiThread(() -> fragmentTransaction.commitAllowingStateLoss());
+        }
+    }
 
-//    private void testFragmenr(Fragment fragment)
-//    {
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//
-//        fragmentTransaction.commit();
-//        fragmentTransaction.remove(fragment).commit();
-//    }
+    public void imageDownload(String source) {
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url(source)
+                .header("Content-Type", "application/json")
+                .header("Accept", "application/json")
+                .header("Connection", "close")
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            /*
+             * Jeśli połączenie nie zostanie nawiązane z serwerem
+             */
+            @Override
+            public void onFailure(Call call, IOException e) { e.printStackTrace();}
+            @Override
+            public void onResponse(Call call, Response response) throws IOException { }
+        });
+
+    }
 }

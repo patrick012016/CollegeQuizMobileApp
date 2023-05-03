@@ -1,6 +1,8 @@
 package com.example.quizapp.Fragments;
 
 import android.animation.ValueAnimator;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,22 +14,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.quizapp.R;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class ProfileFragment extends Fragment {
 
-
-    LinearLayout linearLayout;
-    Button button;
-    TextView textView, textView1, textView2;
-    CardView cardView;
-
-
-    String[] array1 = {"Arek", "Dominik", "Kornel", "Miłosz", "Patryk"};
-
+Button button;
+ImageView image;
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -46,17 +51,14 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        linearLayout = getView().findViewById(R.id.linia);
         button = getView().findViewById(R.id.button3);
-    //    cardView = getView().getRootView().findViewById(R.id.resultUserA);
-
+        image = getView().findViewById(R.id.imageView3);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addvieeee();
             }
         });
-
     }
 
     @Override
@@ -67,38 +69,72 @@ public class ProfileFragment extends Fragment {
     }
 
     public void addvieeee() {
+            OkHttpClient client = new OkHttpClient();
+            String url = "https://dominikpiskor.pl/api/v1/dotnet/quizapi/GetQuizImage/10/1";
+            Request request = new Request.Builder()
+                    .url(url)
+                    .header("Content-Type", "application/octet-stream")
+                    .header("Accept", "application/json")
+                    .header("Connection", "close")
+                    .build();
 
-        for (int i = 0; i < 2; i++) {
-            View viewNew = getLayoutInflater().inflate(R.layout.result_view_card, null);
-            cardView = viewNew.getRootView().findViewById(R.id.resultUserCard);
+            client.newCall(request).enqueue(new Callback() {
+                /*
+                 * Jeśli połączenie nie zostanie nawiązane z serwerem
+                 */
+                @Override
+                public void onFailure(Call call, IOException e) { e.printStackTrace();}
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    if (response.code() == 200)
+                    {
+                        InputStream inputStream = response.body().byteStream();
+                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                image.setImageBitmap(bitmap);
+                            }
+                        });
 
-            textView = viewNew.getRootView().findViewById(R.id.textResult);
-            textView1 = viewNew.getRootView().findViewById(R.id.textUser);
-
-
-            textView.setText(array1[i]);
-            textView1.setText(array1[i]);
-
-
-        //    cardView.setCardBackgroundColor(Color.parseColor(array[i]));
-            linearLayout.addView(viewNew);
-        }
-        View lider = getLayoutInflater().inflate(R.layout.result_leader_view_card, null);
-        textView2 = lider.getRootView().findViewById(R.id.textLeader);
-        textView2.setText("Nikola");
-        linearLayout.addView(lider);
-        ValueAnimator animator = ValueAnimator.ofFloat(0, 200000);
-
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                float value = (float) animator.getAnimatedValue();
-                animator.setDuration(10000);
-                textView2.setText(valueAnimator.getAnimatedValue().toString());
-            }
-        });
-        animator.start();
+                    }
+                }
+            });
 
 
     }
+
+
+//    public void addvieeee() {
+//        for (int i = 0; i < 2; i++) {
+//            View viewNew = getLayoutInflater().inflate(R.layout.result_view_card, null);
+//            cardView = viewNew.getRootView().findViewById(R.id.resultUserCard);
+//
+//            textView = viewNew.getRootView().findViewById(R.id.textResult);
+//            textView1 = viewNew.getRootView().findViewById(R.id.textUser);
+//
+//
+//            textView.setText(array1[i]);
+//            textView1.setText(array1[i]);
+//
+//
+//        //    cardView.setCardBackgroundColor(Color.parseColor(array[i]));
+//            linearLayout.addView(viewNew);
+//        }
+//        View lider = getLayoutInflater().inflate(R.layout.result_leader_view_card, null);
+//        textView2 = lider.getRootView().findViewById(R.id.textLeader);
+//        textView2.setText("Nikola");
+//        linearLayout.addView(lider);
+//        ValueAnimator animator = ValueAnimator.ofFloat(0, 200000);
+//
+//        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//            @Override
+//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//                float value = (float) animator.getAnimatedValue();
+//                animator.setDuration(10000);
+//                textView2.setText(valueAnimator.getAnimatedValue().toString());
+//            }
+//        });
+//        animator.start();
+//    }
 }

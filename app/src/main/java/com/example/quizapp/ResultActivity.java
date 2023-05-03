@@ -48,14 +48,11 @@ public class ResultActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_result);
         linearLayoutResult = findViewById(R.id.linearLayoutResult);
         Intent intent = getIntent();
-
         arrayResult = (ResultDto[]) intent.getSerializableExtra("arrayResult");
         setResultView(Arrays.stream(arrayResult).count());
-
     }
 
     public void setResultView(long countUser) {
@@ -67,7 +64,8 @@ public class ResultActivity extends AppCompatActivity {
             userResultText = viewResultView.getRootView().findViewById(R.id.textResult);
 
             userText.setText(arrayResult[i].getUsername());
-            userResultText.setText(String.valueOf(arrayResult[i].getScore()) + " " + "(+" + String.valueOf(arrayResult[i].getNewPoints()) + ")");
+            userResultText.setText(String.valueOf(arrayResult[i].getScore()) + " " + "(+" +
+                    String.valueOf(arrayResult[i].getNewPoints()) + ")");
 
             userCard.setCardBackgroundColor(Color.parseColor(arrayResultColors[i]));
             linearLayoutResult.addView(viewResultView);
@@ -75,22 +73,15 @@ public class ResultActivity extends AppCompatActivity {
         if(arrayResult[(int) Arrays.stream(arrayResult).count()-1].getCurrentStreak() != 0) {
             View liderResultView = getLayoutInflater().inflate(R.layout.result_leader_view_card, null);
             userLaderText = liderResultView.getRootView().findViewById(R.id.textLeader);
-            userLaderText.setText(String.valueOf(arrayResult[(int) Arrays.stream(arrayResult).count() - 1].getUsername()));
+            userLaderText.setText(String.valueOf(arrayResult[(int) Arrays.stream(arrayResult).count() - 1].getUsername())
+                    + ": " + arrayResult[(int) Arrays.stream(arrayResult).count() - 1].getCurrentStreak());
             linearLayoutResult.addView(liderResultView);
         }
 
 
         hubConnectivity.onGame(message -> {
             finish();
-
         });
-
-
-
-
-
-
-
 
         hubConnectivity.onDisconnect(message -> {
             runOnUiThread(() -> Toast.makeText(ResultActivity.this,
