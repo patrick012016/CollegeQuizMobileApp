@@ -8,6 +8,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -27,6 +29,7 @@ import com.example.quizapp.hubs.HubConnectivity;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 
 import okhttp3.Call;
@@ -40,7 +43,7 @@ public class Quiz_Activity extends AppCompatActivity {
     QuizDto quizDto;
     private final Gson gson = new Gson();
     private HubConnectivity hubConnectivity = HubConnectivity.getInstance(HUBURL);
-
+    FragmentManager fragmentManager = getSupportFragmentManager();
     Bundle bundle;
 
     //==============================================================================================
@@ -67,6 +70,9 @@ public class Quiz_Activity extends AppCompatActivity {
     public void game() {
         hubConnectivity.onGame(message -> {
 
+
+
+
             bundle = new Bundle();
             quizDto = gson.fromJson(message, QuizDto.class);
             String jsonList = gson.toJson(quizDto.answers);
@@ -80,6 +86,7 @@ public class Quiz_Activity extends AppCompatActivity {
                     });
                     replaceFragment(new FourAnswersFragment(), R.id.quizFrameLayout, new BodyImageFragment(),
                             R.id.bodyFrameLayout, jsonList, Long.toString(quizDto.getQuestionId()));
+                    fragmentClear();
                     break;
                 }
                 case TRUE_FALSE: {
@@ -89,6 +96,7 @@ public class Quiz_Activity extends AppCompatActivity {
                     });
                     replaceFragment(new TrueFalseFragment(), R.id.quizFrameLayout, new BodyImageFragment(),
                             R.id.bodyFrameLayout, jsonList, Long.toString(quizDto.getQuestionId()));
+                    fragmentClear();
                     break;
                 }
                 case SINGLE_SIX_ANSWERS: {
@@ -96,9 +104,11 @@ public class Quiz_Activity extends AppCompatActivity {
                         setDataQuiz();
                         timerQuestion();
                     });
-
                     replaceFragment(new SixAnswersFragment(), R.id.quizLargeFrameLayout, new BodyPopupImageFragment(),
                             R.id.bodyFrameLayout, jsonList, Long.toString(quizDto.getQuestionId()));
+                    Fragment fragment = getSupportFragmentManager().findFragmentByTag("main");
+                    getSupportFragmentManager().beginTransaction().remove(fragment).commitAllowingStateLoss();
+                    fragmentClear();
                     break;
                 }
                 case MULTIPLE_FOUR_ANSWERS: {
@@ -111,6 +121,7 @@ public class Quiz_Activity extends AppCompatActivity {
                     });
                     replaceFragmentSlider(new SliderFragment(), R.id.quizFrameLayout, new BodyImageFragment(),
                             R.id.bodyFrameLayout, jsonDataSlider, Long.toString(quizDto.getQuestionId()));
+                    fragmentClear();
                     break;
                 }
             }
@@ -153,11 +164,10 @@ public class Quiz_Activity extends AppCompatActivity {
         bundle.putString("data", data);
         bundle.putString("id", id);
         fragmentQuizMain.setArguments(bundle);
-        FragmentManager fragmentManager = getSupportFragmentManager();
         if (!fragmentManager.isDestroyed()) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(frameLayoutQuiz, fragmentQuizMain);
-            fragmentTransaction.replace(frameLayoutImage, fragmentImageMain);
+            fragmentTransaction.replace(frameLayoutQuiz, fragmentQuizMain, "main");
+            fragmentTransaction.replace(frameLayoutImage, fragmentImageMain, "image");
             runOnUiThread(() -> fragmentTransaction.commitAllowingStateLoss());
         }
     }
@@ -167,7 +177,6 @@ public class Quiz_Activity extends AppCompatActivity {
         bundle.putString("data", data);
         bundle.putString("id", id);
         fragmentQuizMain.setArguments(bundle);
-        FragmentManager fragmentManager = getSupportFragmentManager();
         if (!fragmentManager.isDestroyed()) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(frameLayoutQuiz, fragmentQuizMain);
@@ -176,12 +185,19 @@ public class Quiz_Activity extends AppCompatActivity {
         }
     }
 
+    private void fragmentClear() {
+        Fragment fragmentMain = getSupportFragmentManager().findFragmentByTag("main");
+        Fragment fragmentImage = getSupportFragmentManager().findFragmentByTag("image");
+        getSupportFragmentManager().beginTransaction().remove(fragmentMain).commitAllowingStateLoss();
+        getSupportFragmentManager().beginTransaction().remove(fragmentImage).commitAllowingStateLoss();
+    }
+
     public void imageDownload(String source) {
         OkHttpClient client = new OkHttpClient();
-
+        String url = "https://dominikpiskor.pl/api/v1/dotnet/quizapi/GetQuizImage/10/1";
         Request request = new Request.Builder()
-                .url(source)
-                .header("Content-Type", "application/json")
+                .url(url)
+                .header("Content-Type", "application/octet-stream")
                 .header("Accept", "application/json")
                 .header("Connection", "close")
                 .build();
@@ -191,9 +207,24 @@ public class Quiz_Activity extends AppCompatActivity {
              * Jeśli połączenie nie zostanie nawiązane z serwerem
              */
             @Override
-            public void onFailure(Call call, IOException e) { e.printStackTrace();}
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
             @Override
-            public void onResponse(Call call, Response response) throws IOException { }
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.code() == 200) {
+                    InputStream inputStream = response.body().byteStream();
+                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //         image.setImageBitmap(bitmap);
+                        }
+                    });
+
+                }
+            }
         });
 
     }
