@@ -94,7 +94,7 @@ public class LobbyActivity extends AppCompatActivity {
          * Łączenie do lobby
          */
         OkHttpClient client = new OkHttpClient();
-        String url = "http://10.0.2.2:5157/api/v1/dotnet/QuizSessionAPI/JoinRoomJwt/" + hubConnectivity.getIpConenction() + "/"+ item;
+        String url = "https://dominikpiskor.pl/api/v1/dotnet/QuizSessionAPI/JoinRoomJwt/" + hubConnectivity.getIpConenction() + "/"+ item;
         Request request = new Request.Builder()
                 .url(url)
                 .method("post", null)
@@ -148,6 +148,7 @@ public class LobbyActivity extends AppCompatActivity {
             if(Objects.equals(message, "0")) {
                 Intent intent = new Intent(LobbyActivity.this, Quiz_Activity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

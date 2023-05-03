@@ -5,6 +5,7 @@ import static com.example.quizapp.Utils.Constans.HUBURL;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public class MenuActivity extends AppCompatActivity {
 
     UserLocalStore userLocalStore;
     ActivityMenuBinding binding;
+    LinearLayout linearLayout;
 
     //==============================================================================================
 
@@ -35,6 +37,7 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMenuBinding.inflate(getLayoutInflater());
+        linearLayout = findViewById(R.id.linia);
         setContentView(binding.getRoot());
         /*
          * Parametry startowe elementów

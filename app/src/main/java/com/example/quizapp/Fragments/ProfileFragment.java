@@ -1,60 +1,62 @@
 package com.example.quizapp.Fragments;
 
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.quizapp.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ProfileFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    LinearLayout linearLayout;
+    Button button;
+    TextView textView, textView1, textView2;
+    CardView cardView;
+
+
+    String[] array1 = {"Arek", "Dominik", "Kornel", "Miłosz", "Patryk"};
 
     public ProfileFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ProfileFragment newInstance(String param1, String param2) {
         ProfileFragment fragment = new ProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        linearLayout = getView().findViewById(R.id.linia);
+        button = getView().findViewById(R.id.button3);
+    //    cardView = getView().getRootView().findViewById(R.id.resultUserA);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addvieeee();
+            }
+        });
+
     }
 
     @Override
@@ -62,5 +64,41 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
+    }
+
+    public void addvieeee() {
+
+        for (int i = 0; i < 2; i++) {
+            View viewNew = getLayoutInflater().inflate(R.layout.result_view_card, null);
+            cardView = viewNew.getRootView().findViewById(R.id.resultUserCard);
+
+            textView = viewNew.getRootView().findViewById(R.id.textResult);
+            textView1 = viewNew.getRootView().findViewById(R.id.textUser);
+
+
+            textView.setText(array1[i]);
+            textView1.setText(array1[i]);
+
+
+        //    cardView.setCardBackgroundColor(Color.parseColor(array[i]));
+            linearLayout.addView(viewNew);
+        }
+        View lider = getLayoutInflater().inflate(R.layout.result_leader_view_card, null);
+        textView2 = lider.getRootView().findViewById(R.id.textLeader);
+        textView2.setText("Nikola");
+        linearLayout.addView(lider);
+        ValueAnimator animator = ValueAnimator.ofFloat(0, 200000);
+
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                float value = (float) animator.getAnimatedValue();
+                animator.setDuration(10000);
+                textView2.setText(valueAnimator.getAnimatedValue().toString());
+            }
+        });
+        animator.start();
+
+
     }
 }

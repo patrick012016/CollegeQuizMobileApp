@@ -19,6 +19,8 @@ public class Constans {
     public static final String CONNECTION_ERROR = "Nie udało się dołączyć";
     public static final String CODE_ERROR = "Podany kod nie istnieje lub uległ przedawnieniu";
 
+    public static final String[] arrayResultColors = {"#1fd2e6", "#29e4c5", "#55e5a0", "#bbf5cd", "#bbf5cd"};
+
 
     //==============================================================================================
 

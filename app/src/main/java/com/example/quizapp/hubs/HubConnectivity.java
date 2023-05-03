@@ -31,7 +31,7 @@ public class HubConnectivity {
     }
 
     public void onDisconnect(Consumer<String> onDisconnectingExpression) {
-        hubConnection.on("OnDisconectedSession",message-> {
+        hubConnection.on("OnDisconnectedSession",message-> {
             onDisconnectingExpression.accept(message);
             dispose();
         }, String.class);
@@ -55,16 +55,30 @@ public class HubConnectivity {
         }, String.class);
     }
 
+    public void onQuestionResult(Consumer<String> onDisconnectingExpression) {
+        hubConnection.on("QUESTION_RESULT_P2P",message-> {
+            onDisconnectingExpression.accept(message);
+        }, String.class);
+    }
+
+    public void onCheckPointGame(Consumer<String> onDisconnectingExpression) {
+        hubConnection.on("CORRECT_ANSWERS_SCREEN",message-> {
+            onDisconnectingExpression.accept(message);
+        }, String.class);
+    }
+
     public void connect()
     {
         hubConnection = HubConnectionBuilder.create(url)
                 .build();
     }
+
     public void start()
     {
         hubConnection.start().blockingAwait();
         ipConenction = hubConnection.getConnectionId();
     }
+
     public void dispose()
     {
         hubConnection.close();

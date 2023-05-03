@@ -58,6 +58,12 @@ public class FourAnswersFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        unlockCardResult();
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Bundle bundle = this.getArguments();
@@ -83,39 +89,38 @@ public class FourAnswersFragment extends Fragment {
         cardA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 answerSend(0);
+                blockCardResult(cardA, cardB, cardC, cardD);
                 cardA.setScaleX(0.85f);
                 cardA.setScaleY(0.85f);
-                blockCardResult(cardA, cardB, cardC, cardD);
+
             }
         });
         cardB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 answerSend(2);
+                blockCardResult(cardA, cardB, cardC, cardD);
                 cardB.setScaleX(0.85f);
                 cardB.setScaleY(0.85f);
-                blockCardResult(cardA, cardB, cardC, cardD);
             }
         });
         cardC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 answerSend(1);
+                blockCardResult(cardA, cardB, cardC, cardD);
                 cardC.setScaleX(0.85f);
                 cardC.setScaleY(0.85f);
-                blockCardResult(cardA, cardB, cardC, cardD);
             }
         });
         cardD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 answerSend(3);
+                blockCardResult(cardA, cardB, cardC, cardD);
                 cardD.setScaleX(0.85f);
                 cardD.setScaleY(0.85f);
-                blockCardResult(cardA, cardB, cardC, cardD);
-
             }
         });
     }
@@ -137,13 +142,32 @@ public class FourAnswersFragment extends Fragment {
         four.setFocusable(false);
         four.setClickable(false);
     }
+    public void unlockCardResult ()
+    {
+        cardA.setFocusable(true);
+        cardA.setClickable(true);
+        cardB.setFocusable(true);
+        cardB.setClickable(true);
+        cardC.setFocusable(true);
+        cardC.setClickable(true);
+        cardD.setFocusable(true);
+        cardD.setClickable(true);
+        cardA.setScaleY(1);
+        cardB.setScaleY(1);
+        cardC.setScaleY(1);
+        cardD.setScaleY(1);
+        cardA.setScaleX(1);
+        cardB.setScaleX(1);
+        cardC.setScaleX(1);
+        cardD.setScaleX(1);
+    }
 
     public void answerSend(int idAnswer)
     {
         String ipConnection = hubConnectivity.getIpConenction();
         OkHttpClient client = new OkHttpClient();
 
-        String url = "http://10.0.2.2:5157/api/v1/dotnet/QuizSessionAPI/SendAnswerJwt/"+ ipConnection +"/"+ qeusetionId +"/" + idAnswer + "/false";
+        String url = "https://dominikpiskor.pl/api/v1/dotnet/QuizSessionAPI/SendAnswerJwt/"+ ipConnection +"/"+ qeusetionId +"/" + idAnswer + "/false";
         Request request = new Request.Builder()
                 .url(url)
                 .method("post", null)
@@ -154,7 +178,6 @@ public class FourAnswersFragment extends Fragment {
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
-
             /*
              * Jeśli połączenie nie zostanie nawiązane z serwerem
              */
@@ -165,12 +188,7 @@ public class FourAnswersFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if (response.code() == 401) {
 
-                }
-                else {
-
-                }
             }
         });
     }
