@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.quizapp.GameFragments.BodyImageFragment;
 import com.example.quizapp.GameFragments.BodyPopupImageFragment;
 import com.example.quizapp.GameFragments.FourAnswersFragment;
+import com.example.quizapp.GameFragments.FourAnswersMultiFragment;
 import com.example.quizapp.GameFragments.SixAnswersFragment;
 import com.example.quizapp.GameFragments.SliderFragment;
 import com.example.quizapp.GameFragments.TrueFalseFragment;
@@ -44,7 +45,7 @@ public class Quiz_Activity extends AppCompatActivity {
     private final Gson gson = new Gson();
     private HubConnectivity hubConnectivity = HubConnectivity.getInstance(HUBURL);
     FragmentManager fragmentManager = getSupportFragmentManager();
-    Bundle bundle;
+    Bundle bundle, bundle1;
 
     //==============================================================================================
     TextView questionCounter;
@@ -70,10 +71,8 @@ public class Quiz_Activity extends AppCompatActivity {
     public void game() {
         hubConnectivity.onGame(message -> {
 
-
-
-
             bundle = new Bundle();
+            bundle1 = new Bundle();
             quizDto = gson.fromJson(message, QuizDto.class);
             String jsonList = gson.toJson(quizDto.answers);
             String jsonDataSlider = gson.toJson(quizDto);
@@ -85,7 +84,7 @@ public class Quiz_Activity extends AppCompatActivity {
                         timerQuestion();
                     });
                     replaceFragment(new FourAnswersFragment(), R.id.quizFrameLayout, new BodyImageFragment(),
-                            R.id.bodyFrameLayout, jsonList, Long.toString(quizDto.getQuestionId()));
+                            R.id.bodyFrameLayout, jsonList, Long.toString(quizDto.getQuestionId()), quizDto.getImage_url());
                     fragmentClear();
                     break;
                 }
@@ -95,7 +94,7 @@ public class Quiz_Activity extends AppCompatActivity {
                         timerQuestion();
                     });
                     replaceFragment(new TrueFalseFragment(), R.id.quizFrameLayout, new BodyImageFragment(),
-                            R.id.bodyFrameLayout, jsonList, Long.toString(quizDto.getQuestionId()));
+                            R.id.bodyFrameLayout, jsonList, Long.toString(quizDto.getQuestionId()), quizDto.getImage_url());
                     fragmentClear();
                     break;
                 }
@@ -105,13 +104,18 @@ public class Quiz_Activity extends AppCompatActivity {
                         timerQuestion();
                     });
                     replaceFragment(new SixAnswersFragment(), R.id.quizLargeFrameLayout, new BodyPopupImageFragment(),
-                            R.id.bodyFrameLayout, jsonList, Long.toString(quizDto.getQuestionId()));
-                    Fragment fragment = getSupportFragmentManager().findFragmentByTag("main");
-                    getSupportFragmentManager().beginTransaction().remove(fragment).commitAllowingStateLoss();
+                            R.id.bodyFrameLayout, jsonList, Long.toString(quizDto.getQuestionId()), quizDto.getImage_url());
                     fragmentClear();
                     break;
                 }
                 case MULTIPLE_FOUR_ANSWERS: {
+                    runOnUiThread(() -> {
+                        setDataQuiz();
+                        timerQuestion();
+                    });
+                    replaceFragment(new FourAnswersMultiFragment(), R.id.quizFrameLayout, new BodyImageFragment(),
+                            R.id.bodyFrameLayout, jsonList, Long.toString(quizDto.getQuestionId()), quizDto.getImage_url());
+                    fragmentClear();
                     break;
                 }
                 case RANGE: {
@@ -120,7 +124,7 @@ public class Quiz_Activity extends AppCompatActivity {
                         timerQuestion();
                     });
                     replaceFragmentSlider(new SliderFragment(), R.id.quizFrameLayout, new BodyImageFragment(),
-                            R.id.bodyFrameLayout, jsonDataSlider, Long.toString(quizDto.getQuestionId()));
+                            R.id.bodyFrameLayout, jsonDataSlider, Long.toString(quizDto.getQuestionId()), quizDto.getImage_url());
                     fragmentClear();
                     break;
                 }
@@ -160,9 +164,13 @@ public class Quiz_Activity extends AppCompatActivity {
     //==============================================================================================
 
     private void replaceFragment(Fragment fragmentQuizMain, int frameLayoutQuiz, Fragment fragmentImageMain,
-                                 int frameLayoutImage, String data, String id) {
+                                 int frameLayoutImage, String data, String id, String img) {
         bundle.putString("data", data);
         bundle.putString("id", id);
+        if(img != null) {
+            bundle1.putString("img", img);
+            fragmentImageMain.setArguments(bundle1);
+        }
         fragmentQuizMain.setArguments(bundle);
         if (!fragmentManager.isDestroyed()) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -173,9 +181,13 @@ public class Quiz_Activity extends AppCompatActivity {
     }
 
     private void replaceFragmentSlider(Fragment fragmentQuizMain, int frameLayoutQuiz, Fragment fragmentImageMain,
-                                 int frameLayoutImage, String data, String id) {
+                                 int frameLayoutImage, String data, String id, String img) {
         bundle.putString("data", data);
         bundle.putString("id", id);
+        if(img != null) {
+            bundle1.putString("img", img);
+            fragmentImageMain.setArguments(bundle1);
+        }
         fragmentQuizMain.setArguments(bundle);
         if (!fragmentManager.isDestroyed()) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -190,42 +202,5 @@ public class Quiz_Activity extends AppCompatActivity {
         Fragment fragmentImage = getSupportFragmentManager().findFragmentByTag("image");
         getSupportFragmentManager().beginTransaction().remove(fragmentMain).commitAllowingStateLoss();
         getSupportFragmentManager().beginTransaction().remove(fragmentImage).commitAllowingStateLoss();
-    }
-
-    public void imageDownload(String source) {
-        OkHttpClient client = new OkHttpClient();
-        String url = "https://dominikpiskor.pl/api/v1/dotnet/quizapi/GetQuizImage/10/1";
-        Request request = new Request.Builder()
-                .url(url)
-                .header("Content-Type", "application/octet-stream")
-                .header("Accept", "application/json")
-                .header("Connection", "close")
-                .build();
-
-        client.newCall(request).enqueue(new Callback() {
-            /*
-             * Jeśli połączenie nie zostanie nawiązane z serwerem
-             */
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if (response.code() == 200) {
-                    InputStream inputStream = response.body().byteStream();
-                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            //         image.setImageBitmap(bitmap);
-                        }
-                    });
-
-                }
-            }
-        });
-
     }
 }

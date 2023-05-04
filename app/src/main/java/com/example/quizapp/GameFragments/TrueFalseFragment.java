@@ -59,13 +59,9 @@ public class TrueFalseFragment extends Fragment {
         Bundle bundle = this.getArguments();
         cardA = getView().findViewById(R.id.cardTrue);
         cardB = getView().findViewById(R.id.cardFalse);
-        answerA = getView().findViewById(R.id.answerTrue);
-        answerB = getView().findViewById(R.id.answerFalse);
 
         mydataAnswers = bundle.getString("data");
         qeusetionId = bundle.getString("id");
-
-        String[] array = new Gson().fromJson(mydataAnswers, String[].class);
 
         cardA.setOnClickListener(v -> {
             answerSend(0);
