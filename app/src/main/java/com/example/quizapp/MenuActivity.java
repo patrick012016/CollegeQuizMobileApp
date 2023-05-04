@@ -80,11 +80,4 @@ public class MenuActivity extends AppCompatActivity {
         userLocalStore.clearUserData();
         userLocalStore.setUserLoggedIn(false);
     }
-
-    //==============================================================================================
-
-    public void testwidok(View view) {
-        Intent intent = new Intent(MenuActivity.this, Quiz_Activity.class);
-        startActivity(intent);
-    }
 }

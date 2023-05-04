@@ -31,8 +31,6 @@ import okhttp3.Response;
 
 public class ProfileFragment extends Fragment {
 
-Button button;
-ImageView image;
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -51,14 +49,6 @@ ImageView image;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        button = getView().findViewById(R.id.button3);
-        image = getView().findViewById(R.id.imageView3);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addvieeee();
-            }
-        });
     }
 
     @Override
@@ -67,44 +57,6 @@ ImageView image;
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
-
-    public void addvieeee() {
-            OkHttpClient client = new OkHttpClient();
-            String url = "https://dominikpiskor.pl/api/v1/dotnet/quizapi/GetQuizImage/10/1";
-            Request request = new Request.Builder()
-                    .url(url)
-                    .header("Content-Type", "application/octet-stream")
-                    .header("Accept", "application/json")
-                    .header("Connection", "close")
-                    .build();
-
-            client.newCall(request).enqueue(new Callback() {
-                /*
-                 * Jeśli połączenie nie zostanie nawiązane z serwerem
-                 */
-                @Override
-                public void onFailure(Call call, IOException e) { e.printStackTrace();}
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    if (response.code() == 200)
-                    {
-                        InputStream inputStream = response.body().byteStream();
-                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                image.setImageBitmap(bitmap);
-                            }
-                        });
-
-                    }
-                }
-            });
-
-
-    }
-
-
 //    public void addvieeee() {
 //        for (int i = 0; i < 2; i++) {
 //            View viewNew = getLayoutInflater().inflate(R.layout.result_view_card, null);
