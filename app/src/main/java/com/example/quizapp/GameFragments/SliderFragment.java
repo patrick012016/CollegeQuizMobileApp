@@ -92,7 +92,10 @@ public class SliderFragment extends Fragment {
             List<Float> answerValues = rangeSlider.getValues();
             float min = answerValues.get(0);
             float max = answerValues.get(1);
-            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
+            view.performHapticFeedback(
+                    HapticFeedbackConstants.VIRTUAL_KEY,
+                    HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
+            );
             answerSend((int)min, (int)max);
             rangeSlider.setEnabled(false);
             rangeSlider.setClickable(false);

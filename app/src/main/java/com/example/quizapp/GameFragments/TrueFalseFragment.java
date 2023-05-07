@@ -66,14 +66,20 @@ public class TrueFalseFragment extends Fragment {
 
         cardA.setOnClickListener(v -> {
             answerSend(0);
-            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
+            view.performHapticFeedback(
+                    HapticFeedbackConstants.VIRTUAL_KEY,
+                    HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
+            );
             blockCardResult(cardA, cardB);
             setScale(cardA);
         });
 
         cardB.setOnClickListener(v -> {
             answerSend(1);
-            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
+            view.performHapticFeedback(
+                    HapticFeedbackConstants.VIRTUAL_KEY,
+                    HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
+            );
             blockCardResult(cardA, cardB);
             setScale(cardB);
         });

@@ -79,25 +79,37 @@ public class FourAnswersFragment extends Fragment {
 
 
         cardA.setOnClickListener(v -> {
-            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
+            view.performHapticFeedback(
+                    HapticFeedbackConstants.VIRTUAL_KEY,
+                    HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
+            );
             answerSend(0);
             blockCardResult(cardA, cardB, cardC, cardD);
             setScale(cardA);
         });
         cardB.setOnClickListener(v -> {
-            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
+            view.performHapticFeedback(
+                    HapticFeedbackConstants.VIRTUAL_KEY,
+                    HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
+            );
             answerSend(1);
             blockCardResult(cardA, cardB, cardC, cardD);
             setScale(cardB);
         });
         cardC.setOnClickListener(v -> {
-            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
+            view.performHapticFeedback(
+                    HapticFeedbackConstants.VIRTUAL_KEY,
+                    HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
+            );
             answerSend(2);
             blockCardResult(cardA, cardB, cardC, cardD);
             setScale(cardC);
         });
         cardD.setOnClickListener(v -> {
-            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
+            view.performHapticFeedback(
+                    HapticFeedbackConstants.VIRTUAL_KEY,
+                    HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
+            );
             answerSend(3);
             blockCardResult(cardA, cardB, cardC, cardD);
             setScale(cardD);

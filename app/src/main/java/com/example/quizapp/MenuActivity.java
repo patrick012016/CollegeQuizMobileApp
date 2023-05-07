@@ -94,7 +94,7 @@ public class MenuActivity extends AppCompatActivity {
         NotificationManager mNotificationManager;
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(getApplicationContext().getApplicationContext(), "channel");
-        mBuilder.setSmallIcon(R.drawable.watermarkdarkdefualt);
+        mBuilder.setSmallIcon(R.drawable.icon_logo_foreground);
         mBuilder.setContentTitle("Quizazu");
         mBuilder.setContentText("Poprawnie wylogowano z aplikacji Quizazu");
         mBuilder.setAutoCancel(false);

@@ -82,37 +82,55 @@ public class SixAnswersFragment extends Fragment {
 
         cardA.setOnClickListener(v -> {
             answerSend(0);
-            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
+            view.performHapticFeedback(
+                    HapticFeedbackConstants.VIRTUAL_KEY,
+                    HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
+            );
             blockCardResult(cardA, cardB, cardC, cardD, cardE, cardF);
             setScale(cardA);
         });
         cardB.setOnClickListener(v -> {
             answerSend(1);
-            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
+            view.performHapticFeedback(
+                    HapticFeedbackConstants.VIRTUAL_KEY,
+                    HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
+            );
             blockCardResult(cardA, cardB, cardC, cardD, cardE, cardF);
             setScale(cardB);
         });
         cardC.setOnClickListener(v -> {
             answerSend(2);
-            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
+            view.performHapticFeedback(
+                    HapticFeedbackConstants.VIRTUAL_KEY,
+                    HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
+            );
             blockCardResult(cardA, cardB, cardC, cardD, cardE, cardF);
             setScale(cardC);
         });
         cardD.setOnClickListener(v -> {
             answerSend(3);
-            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
+            view.performHapticFeedback(
+                    HapticFeedbackConstants.VIRTUAL_KEY,
+                    HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
+            );
             blockCardResult(cardA, cardB, cardC, cardD, cardE, cardF);
             setScale(cardD);
         });
         cardE.setOnClickListener(v -> {
             answerSend(4);
-            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
+            view.performHapticFeedback(
+                    HapticFeedbackConstants.VIRTUAL_KEY,
+                    HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
+            );
             blockCardResult(cardA, cardB, cardC, cardD, cardE, cardF);
             setScale(cardE);
         });
         cardF.setOnClickListener(v -> {
             answerSend(5);
-            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
+            view.performHapticFeedback(
+                    HapticFeedbackConstants.VIRTUAL_KEY,
+                    HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING
+            );
             blockCardResult(cardA, cardB, cardC, cardD, cardE, cardF);
             setScale(cardF);
         });

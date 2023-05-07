@@ -124,33 +124,24 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     e.printStackTrace();
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            progressBar.setVisibility(View.GONE);
-                            motionLayout.setAlpha(1);
-                            Toast.makeText(MainActivity.this,
-                                    "Nie udało nawiązać połączenia", Toast.LENGTH_SHORT).show();
-                        }
+                    runOnUiThread(() -> {
+                        progressBar.setVisibility(View.GONE);
+                        motionLayout.setAlpha(1);
+                        Toast.makeText(MainActivity.this,
+                                "Nie udało nawiązać połączenia", Toast.LENGTH_SHORT).show();
                     });
                 }
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            progressBar.setVisibility(View.GONE);
-                            motionLayout.setAlpha(1);
-                        }
+                    runOnUiThread(() -> {
+                        progressBar.setVisibility(View.GONE);
+                        motionLayout.setAlpha(1);
                     });
                     if (response.code() == 401) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                errorLogin.setText(message);
-                                errorPassword.setText(message);
-                            }
+                        runOnUiThread(() -> {
+                            errorLogin.setText(message);
+                            errorPassword.setText(message);
                         });
                     }
                     if (response.code() == 200) {
