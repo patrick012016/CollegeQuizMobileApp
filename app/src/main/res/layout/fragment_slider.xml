@@ -4,28 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GameFragments.SliderFragment"
-    android:padding="10dp">
+    android:paddingHorizontal="10dp"
+    tools:context=".GameFragments.SliderFragment">
 
     <com.google.android.material.slider.RangeSlider
         android:id="@+id/rangeSlider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
-        android:hapticFeedbackEnabled="false"
+        android:hapticFeedbackEnabled="true"
         app:labelBehavior="visible"
         app:labelStyle="@style/Tooltip"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="0.1" />
 
     <TextView
         android:id="@+id/textLabelSlider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
         android:text="Wybierz odpowiedni zakres lub punkt:"
         android:textAlignment="center"
         android:textColor="#19452e"
@@ -34,18 +33,58 @@
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toTopOf="@+id/rangeSlider"
         app:layout_constraintEnd_toEndOf="@+id/rangeSlider"
-        app:layout_constraintStart_toStartOf="@+id/rangeSlider" />
+        app:layout_constraintStart_toStartOf="@+id/rangeSlider"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/sendSlider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="64dp"
         android:backgroundTint="#63c4ab"
         android:text="Zatwierdź"
         android:textAllCaps="true"
         android:textColor="#19452e"
-        app:layout_constraintEnd_toEndOf="@+id/rangeSlider"
-        app:layout_constraintStart_toStartOf="@+id/rangeSlider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rangeSlider" />
+
+    <FrameLayout
+        android:id="@+id/frameSliderCorrect"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rangeSlider">
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/buttonRightToLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#63c4ab"
+        android:text="Do prawej"
+        android:textAllCaps="true"
+        android:textColor="#19452e"
+        android:textSize="11sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rangeSlider" />
+
+    <Button
+        android:id="@+id/buttonLeftToRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#63c4ab"
+        android:minLines="2"
+        android:text="Do lewej"
+        android:textAllCaps="true"
+        android:textColor="#19452e"
+        android:textSize="11sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rangeSlider" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

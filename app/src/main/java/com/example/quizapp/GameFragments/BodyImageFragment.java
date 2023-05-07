@@ -82,6 +82,13 @@ public class BodyImageFragment extends Fragment {
         dialog.show();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (dialog != null)
+            dialog.cancel();
+    }
+
     public void imageDownload(String source) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()

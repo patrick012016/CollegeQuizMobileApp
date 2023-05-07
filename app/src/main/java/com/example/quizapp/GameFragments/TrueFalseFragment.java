@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,12 +66,14 @@ public class TrueFalseFragment extends Fragment {
 
         cardA.setOnClickListener(v -> {
             answerSend(0);
+            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
             blockCardResult(cardA, cardB);
             setScale(cardA);
         });
 
         cardB.setOnClickListener(v -> {
             answerSend(1);
+            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
             blockCardResult(cardA, cardB);
             setScale(cardB);
         });

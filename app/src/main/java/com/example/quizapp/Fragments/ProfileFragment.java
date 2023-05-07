@@ -1,27 +1,28 @@
 package com.example.quizapp.Fragments;
 
-import android.animation.ValueAnimator;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import static android.text.Html.FROM_HTML_MODE_COMPACT;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.quizapp.LocalDataBase.UserLocalStore;
 import com.example.quizapp.R;
+import com.example.quizapp.dto.UserInfoDto;
+import com.google.gson.Gson;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -31,8 +32,17 @@ import okhttp3.Response;
 
 public class ProfileFragment extends Fragment {
 
+    TextView username;
+    TextView firstName;
+    TextView lastName;
+    TextView email;
+    TextView subscription;
+    ProgressBar progressBar;
+    ConstraintLayout constraintLayout;
+    UserInfoDto userInfoDto;
+    private final Gson gson = new Gson();
+
     public ProfileFragment() {
-        // Required empty public constructor
     }
 
     public static ProfileFragment newInstance(String param1, String param2) {
@@ -49,44 +59,91 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        username = getView().findViewById(R.id.userNameText);
+        firstName = getView().findViewById(R.id.firstNameText);
+        lastName = getView().findViewById(R.id.lastNameText);
+        email = getView().findViewById(R.id.emailText);
+        subscription = getView().findViewById(R.id.accountStatusText);
+        progressBar = getView().findViewById(R.id.progressBarProfile);
+        constraintLayout = getView().findViewById(R.id.constraintLayoutProfile);
+        constraintLayout.setAlpha(0.4f);
+        progressBar.setVisibility(View.VISIBLE);
+        downloadInfo();
+
+//        username.setText(userInfoDto.getUsername());
+//        username.setText(userInfoDto.getUsername());
+//        username.setText(userInfoDto.getUsername());
+//        username.setText(userInfoDto.getUsername());
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
-//    public void addvieeee() {
-//        for (int i = 0; i < 2; i++) {
-//            View viewNew = getLayoutInflater().inflate(R.layout.result_view_card, null);
-//            cardView = viewNew.getRootView().findViewById(R.id.resultUserCard);
-//
-//            textView = viewNew.getRootView().findViewById(R.id.textResult);
-//            textView1 = viewNew.getRootView().findViewById(R.id.textUser);
-//
-//
-//            textView.setText(array1[i]);
-//            textView1.setText(array1[i]);
-//
-//
-//        //    cardView.setCardBackgroundColor(Color.parseColor(array[i]));
-//            linearLayout.addView(viewNew);
-//        }
-//        View lider = getLayoutInflater().inflate(R.layout.result_leader_view_card, null);
-//        textView2 = lider.getRootView().findViewById(R.id.textLeader);
-//        textView2.setText("Nikola");
-//        linearLayout.addView(lider);
-//        ValueAnimator animator = ValueAnimator.ofFloat(0, 200000);
-//
-//        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//            @Override
-//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-//                float value = (float) animator.getAnimatedValue();
-//                animator.setDuration(10000);
-//                textView2.setText(valueAnimator.getAnimatedValue().toString());
-//            }
-//        });
-//        animator.start();
-//    }
+
+
+    public void downloadInfo()
+    {
+        OkHttpClient client = new OkHttpClient();
+        String url = "https://dominikpiskor.pl/api/v1/dotnet/UserAPI/UserDetails";
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Authorization", "Bearer " + UserLocalStore.getInstance(getContext()).getUserLocalDatabase())
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+
+            /*
+             * Jeśli połączenie nie zostanie nawiązane z serwerem
+             */
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                getActivity().runOnUiThread(() -> Toast.makeText(getActivity(),
+                        "Nie udało się pobrać danych użytkownika", Toast.LENGTH_SHORT).show());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                if (response.code() == 200) {
+                    userInfoDto = gson.fromJson(response.body().string(), UserInfoDto.class);
+                    if (getActivity() != null) {
+                        getActivity().runOnUiThread(() -> {
+                            constraintLayout.setAlpha(1f);
+                            progressBar.setVisibility(View.INVISIBLE);
+                            username.setText(userInfoDto.getUsername());
+                            firstName.setText((Html.fromHtml(firstName.getText()
+                                    + "<strong>" + userInfoDto.getFirstName() + "</strong>", FROM_HTML_MODE_COMPACT)));
+                            lastName.setText((Html.fromHtml(lastName.getText()
+                                    + "<strong>" + userInfoDto.getLastName() + "</strong>", FROM_HTML_MODE_COMPACT)));
+                            email.setText((Html.fromHtml(email.getText()
+                                    + "<strong>" + userInfoDto.getEmail() + "</strong>", FROM_HTML_MODE_COMPACT)));
+                            if (userInfoDto.getAccountStatus() == 0) {
+                                subscription.setText((Html.fromHtml(subscription.getText()
+                                        + "<strong>" + "Standard" + "</strong>", FROM_HTML_MODE_COMPACT)));
+                            } else if (userInfoDto.getAccountStatus() == 1) {
+                                subscription.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.baseline_local_fire_gold, 0);
+                                subscription.setText((Html.fromHtml(subscription.getText()
+                                        + "<strong>" + "Gold" + "</strong>", FROM_HTML_MODE_COMPACT)));
+                            } else if (userInfoDto.getAccountStatus() == 2) {
+                                subscription.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.baseline_local_fire_platinum, 0);
+                                subscription.setText((Html.fromHtml(subscription.getText()
+                                        + "<strong>" + "Platinum" + "</strong>", FROM_HTML_MODE_COMPACT)));
+                            }
+                        });
+                    } else {
+                        if(getActivity() != null) {
+                            getActivity().runOnUiThread(() -> Toast.makeText(getActivity(),
+                                    "Nie udało się pobrać danych użytkownika", Toast.LENGTH_SHORT).show());
+                        }
+                    }
+                }
+            }
+        });
+    }
+
 }

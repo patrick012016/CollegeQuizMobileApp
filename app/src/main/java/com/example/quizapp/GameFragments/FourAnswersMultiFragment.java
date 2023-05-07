@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,21 +77,25 @@ public class FourAnswersMultiFragment extends Fragment {
 
         cardMultiA.setOnClickListener(v -> {
             answerSend(0);
+            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
             blockCardResult(cardMultiA);
             setScale(cardMultiA);
         });
         cardMultiB.setOnClickListener(v -> {
             answerSend(1);
+            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
             blockCardResult(cardMultiB);
             setScale(cardMultiB);
         });
         cardMultiC.setOnClickListener(v -> {
             answerSend(2);
+            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
             blockCardResult(cardMultiC);
             setScale(cardMultiC);
         });
         cardMultiD.setOnClickListener(v -> {
             answerSend(3);
+            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
             blockCardResult(cardMultiD);
             setScale(cardMultiD);
         });

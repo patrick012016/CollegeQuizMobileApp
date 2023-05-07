@@ -67,6 +67,13 @@ public class BodyPopupImageFragment extends Fragment {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        if (dialog != null)
+            dialog.cancel();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_body_popup_image, container, false);

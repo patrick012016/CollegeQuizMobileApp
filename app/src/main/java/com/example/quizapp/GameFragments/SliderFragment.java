@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,8 @@ public class SliderFragment extends Fragment {
     RangeSlider rangeSlider;
     QuizDto quizDto;
     Button buttonSend;
+    Button butonLeft;
+    Button butonRight;
 
     public SliderFragment() { }
 
@@ -64,7 +67,8 @@ public class SliderFragment extends Fragment {
         Bundle bundle = this.getArguments();
         rangeSlider = getView().findViewById(R.id.rangeSlider);
         buttonSend = getView().findViewById(R.id.sendSlider);
-
+        butonRight = getView().findViewById(R.id.buttonLeftToRight);
+        butonLeft = getView().findViewById(R.id.buttonRightToLeft);
         mydataAnswers = bundle.getString("data");
         qeusetionId = bundle.getString("id");
 
@@ -74,10 +78,21 @@ public class SliderFragment extends Fragment {
         rangeSlider.setStepSize(quizDto.getStep());
         rangeSlider.setValues((float)quizDto.getMin(), (float)quizDto.getMax());
 
+        butonLeft.setOnClickListener(v -> {
+            List<Float> values = rangeSlider.getValues();
+            rangeSlider.setValues((float)values.get(1), values.get(1));
+        });
+
+        butonRight.setOnClickListener(v -> {
+            List<Float> values = rangeSlider.getValues();
+            rangeSlider.setValues((float)values.get(0), values.get(0));
+        });
+
         buttonSend.setOnClickListener(v -> {
             List<Float> answerValues = rangeSlider.getValues();
             float min = answerValues.get(0);
             float max = answerValues.get(1);
+            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
             answerSend((int)min, (int)max);
             rangeSlider.setEnabled(false);
             rangeSlider.setClickable(false);

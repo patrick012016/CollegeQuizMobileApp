@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,21 +79,25 @@ public class FourAnswersFragment extends Fragment {
 
 
         cardA.setOnClickListener(v -> {
+            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
             answerSend(0);
             blockCardResult(cardA, cardB, cardC, cardD);
             setScale(cardA);
         });
         cardB.setOnClickListener(v -> {
+            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
             answerSend(1);
             blockCardResult(cardA, cardB, cardC, cardD);
             setScale(cardB);
         });
         cardC.setOnClickListener(v -> {
+            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
             answerSend(2);
             blockCardResult(cardA, cardB, cardC, cardD);
             setScale(cardC);
         });
         cardD.setOnClickListener(v -> {
+            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
             answerSend(3);
             blockCardResult(cardA, cardB, cardC, cardD);
             setScale(cardD);

@@ -6,16 +6,29 @@ import static com.example.quizapp.Utils.Constans.arrayResultColors;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.AnimatedVectorDrawable;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.ScaleAnimation;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +36,8 @@ import android.widget.Toast;
 import com.example.quizapp.GameFragments.TrueFalseFragment;
 import com.example.quizapp.dto.ResultDto;
 import com.example.quizapp.hubs.HubConnectivity;
+
+import org.w3c.dom.Text;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
@@ -32,8 +47,6 @@ import java.util.List;
 public class ResultActivity extends AppCompatActivity {
 
     private HubConnectivity hubConnectivity = HubConnectivity.getInstance(HUBURL);
-//    List<ResultDto> listResult;
-
 
     CardView userCard;
     CardView resultCard;
@@ -44,6 +57,9 @@ public class ResultActivity extends AppCompatActivity {
     TextView userLaderText;
     LinearLayout linearLayoutResult;
     ResultDto[] arrayResult;
+
+    @Override
+    public void onBackPressed() { }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +87,33 @@ public class ResultActivity extends AppCompatActivity {
             linearLayoutResult.addView(viewResultView);
         }
         if(arrayResult[(int) Arrays.stream(arrayResult).count()-1].getCurrentStreak() != 0) {
-            View liderResultView = getLayoutInflater().inflate(R.layout.result_leader_view_card, null);
-            userLaderText = liderResultView.getRootView().findViewById(R.id.textLeader);
+            View leaderResultView = getLayoutInflater().inflate(R.layout.result_leader_view_card, null);
+            userLaderText = leaderResultView.getRootView().findViewById(R.id.textLeader);
+            leaderCard = leaderResultView.getRootView().findViewById(R.id.leaderUser);
+
+            ImageView imageView1 = leaderResultView.findViewById(R.id.iconImageOne);
+            ImageView imageView2 = leaderResultView.findViewById(R.id.iconImageTwo);
+
+            ObjectAnimator scaleDown1 = ObjectAnimator.ofPropertyValuesHolder(
+                    imageView1,
+                    PropertyValuesHolder.ofFloat("scaleX", 0.8f, 1.2f),
+                    PropertyValuesHolder.ofFloat("scaleY", 0.8f, 1.2f));
+            scaleDown1.setDuration(1000);
+            scaleDown1.setRepeatCount(ObjectAnimator.INFINITE);
+            scaleDown1.setRepeatMode(ObjectAnimator.REVERSE);
+            scaleDown1.start();
+            ObjectAnimator scaleDown2 = ObjectAnimator.ofPropertyValuesHolder(
+                    imageView2,
+                    PropertyValuesHolder.ofFloat("scaleX", 0.8f, 1.2f),
+                    PropertyValuesHolder.ofFloat("scaleY", 0.8f, 1.2f));
+            scaleDown2.setDuration(1000);
+            scaleDown2.setRepeatCount(ObjectAnimator.INFINITE);
+            scaleDown2.setRepeatMode(ObjectAnimator.REVERSE);
+            scaleDown2.start();
+
             userLaderText.setText(String.valueOf(arrayResult[(int) Arrays.stream(arrayResult).count() - 1].getUsername())
                     + ": " + arrayResult[(int) Arrays.stream(arrayResult).count() - 1].getCurrentStreak());
-            linearLayoutResult.addView(liderResultView);
+            linearLayoutResult.addView(leaderResultView);
         }
 
 
@@ -85,7 +123,7 @@ public class ResultActivity extends AppCompatActivity {
 
         hubConnectivity.onDisconnect(message -> {
             runOnUiThread(() -> Toast.makeText(ResultActivity.this,
-                    "Rozłączono z quizem", Toast.LENGTH_LONG).show());
+                    "Rozłączono z quizem", Toast.LENGTH_SHORT).show());
             finish();
         });
 

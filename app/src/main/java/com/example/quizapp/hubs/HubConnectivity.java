@@ -61,7 +61,7 @@ public class HubConnectivity {
         }, String.class);
     }
 
-    public void onCheckPointGame(Consumer<String> onDisconnectingExpression) {
+    public void onCorrectAnswer(Consumer<String> onDisconnectingExpression) {
         hubConnection.on("CORRECT_ANSWERS_SCREEN",message-> {
             onDisconnectingExpression.accept(message);
         }, String.class);

@@ -1,116 +1,115 @@
 package com.example.quizapp.dto;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class QuizDto {
 
-    public long questionId;
-    public String question;
-    public long questionType;
-    public ArrayList<String> answers;
-    public int time_sec;
-    public boolean is_range;
-    public int step;
-    public int min;
-    public int max;
-    public int min_counted;
-    public int max_counted;
-    public String image_url;
+    public long QuestionId;
+    public String Question;
+    public long QuestionType;
+    public ArrayList<String> Answers;
+    public int TimeSec;
+    public boolean IsRange;
+    public int Step;
+    public int Min;
+    public int Max;
+    public int MinCounted;
+    public int MaxCounted;
+    public String ImageUrl;
 
-    public String getImage_url() {
-        return image_url;
+    public String getImageUrl() {
+        return ImageUrl;
     }
 
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
+    public void setImageUrl(String imageUrl) {
+        this.ImageUrl = imageUrl;
     }
 
     public long getQuestionId() {
-        return questionId;
+        return QuestionId;
     }
 
     public void setQuestionId(long questionId) {
-        this.questionId = questionId;
+        this.QuestionId = questionId;
     }
 
     public String getQuestion() {
-        return question;
+        return Question;
     }
 
     public void setQuestion(String question) {
-        this.question = question;
+        this.Question = question;
     }
 
     public long getQuestionType() {
-        return questionType;
+        return QuestionType;
     }
 
     public void setQuestionType(long questionType) {
-        this.questionType = questionType;
+        this.QuestionType = questionType;
     }
 
     public ArrayList<String> getAnswers() {
-        return answers;
+        return Answers;
     }
 
     public void setAnswers(ArrayList<String> answers) {
-        this.answers = answers;
+        this.Answers = answers;
     }
 
-    public int getTime_sec() {
-        return time_sec;
+    public int getTimeSec() {
+        return TimeSec;
     }
 
-    public void setTime_sec(int time_sec) {
-        this.time_sec = time_sec;
+    public void setTimeSec(int timeSec) {
+        this.TimeSec = timeSec;
     }
 
-    public boolean isIs_range() {
-        return is_range;
+    public boolean isRange() {
+        return IsRange;
     }
 
-    public void setIs_range(boolean is_range) {
-        this.is_range = is_range;
+    public void setRange(boolean range) {
+        this.IsRange = range;
     }
 
     public int getStep() {
-        return step;
+        return Step;
     }
 
     public void setStep(int step) {
-        this.step = step;
+        this.Step = step;
     }
 
     public int getMin() {
-        return min;
+        return Min;
     }
 
     public void setMin(int min) {
-        this.min = min;
+        this.Min = min;
     }
 
     public int getMax() {
-        return max;
+        return Max;
     }
 
     public void setMax(int max) {
-        this.max = max;
+        this.Max = max;
     }
 
-    public int getMin_counted() {
-        return min_counted;
+    public int getMinCounted() {
+        return MinCounted;
     }
 
-    public void setMin_counted(int min_counted) {
-        this.min_counted = min_counted;
+    public void setMinCounted(int minCounted) {
+        this.MinCounted = minCounted;
     }
 
-    public int getMax_counted() {
-        return max_counted;
+    public int getMaxCounted() {
+        return MaxCounted;
     }
 
-    public void setMax_counted(int max_counted) {
-        this.max_counted = max_counted;
+    public void setMaxCounted(int maxCounted) {
+        this.MaxCounted = maxCounted;
     }
 }

@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Html;
@@ -38,6 +39,7 @@ import com.example.quizapp.hubs.HubConnectivity;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.function.Consumer;
@@ -73,7 +75,7 @@ public class LobbyActivity extends AppCompatActivity {
             public void onClick(View v) {
                 hubConnectivity.dispose();
                 runOnUiThread(() -> Toast.makeText(LobbyActivity.this,
-                        "Opuszczono quiz", Toast.LENGTH_LONG).show());
+                        "Opuszczono quiz", Toast.LENGTH_SHORT).show());
                 finish();
             }
         });
@@ -111,21 +113,21 @@ public class LobbyActivity extends AppCompatActivity {
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
                 runOnUiThread(() -> Toast.makeText(LobbyActivity.this,
-                        CONNECTION_ERROR, Toast.LENGTH_LONG).show());
+                        CONNECTION_ERROR, Toast.LENGTH_SHORT).show());
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.code() == 401) {
                     runOnUiThread(() -> Toast.makeText(LobbyActivity.this,
-                            CONNECTION_ERROR, Toast.LENGTH_LONG).show());
+                            CONNECTION_ERROR, Toast.LENGTH_SHORT).show());
                 }
                 if (response.code() == 200) {
                     lobbyDto = gson.fromJson(response.body().string(), LobbyDto.class);
                     if(!lobbyDto.isGood()) {
                         finish();
                         runOnUiThread(() -> Toast.makeText(LobbyActivity.this,
-                                CODE_ERROR, Toast.LENGTH_LONG).show());
+                                CODE_ERROR, Toast.LENGTH_SHORT).show());
                     }
                     else {
                         runOnUiThread(() -> lobbyWait.setText(Html.fromHtml(messageLobbyWait
@@ -137,12 +139,38 @@ public class LobbyActivity extends AppCompatActivity {
         final Consumer<String> onDisconnectExpression = message ->
         {
             runOnUiThread(() -> Toast.makeText(LobbyActivity.this,
-                    "Rozłączono z quizem", Toast.LENGTH_LONG).show());
+                    "Rozłączono z quizem", Toast.LENGTH_SHORT).show());
             finish();
         };
         hubConnectivity.onDisconnect(onDisconnectExpression);
 
         hubConnectivity.onCounting(message -> {
+//            MediaPlayer music5 = MediaPlayer.create(LobbyActivity.this, R.raw.five);
+//            MediaPlayer music4 = MediaPlayer.create(LobbyActivity.this, R.raw.four);
+//            MediaPlayer music3 = MediaPlayer.create(LobbyActivity.this, R.raw.three);
+//            MediaPlayer music2 = MediaPlayer.create(LobbyActivity.this, R.raw.two);
+//            MediaPlayer music1 = MediaPlayer.create(LobbyActivity.this, R.raw.one);
+//
+//            if(Objects.equals(message, "5")) {
+//                music5.start();
+//            }
+//           else if(Objects.equals(message, "4")) {
+//                music4.start();
+//            }
+//            else if(Objects.equals(message, "3")) {
+//                music3.start();
+//            }
+//            else if(Objects.equals(message, "2")) {
+//                music2.start();
+//            }
+//            else if(Objects.equals(message, "1")) {
+//                music1.start();
+//            }
+//            music1.setOnCompletionListener(MediaPlayer::release);
+//            music2.setOnCompletionListener(MediaPlayer::release);
+//            music3.setOnCompletionListener(MediaPlayer::release);
+//            music4.setOnCompletionListener(MediaPlayer::release);
+//            music5.setOnCompletionListener(MediaPlayer::release);
             startLobby(lobbyDto.getQuizName());
             lobbyCounter.setText(message);
             if(Objects.equals(message, "0")) {

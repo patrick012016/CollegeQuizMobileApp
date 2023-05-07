@@ -5,19 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:elevation="5dp"
-    android:padding="10dp"
-    tools:context=".Fragments.ProfileFragment">
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    android:padding="10dp" >
 
     <androidx.cardview.widget.CardView
         android:id="@+id/resultUserCard"
-        android:layout_width="200dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/resultScoreCard"
         android:clickable="true"
         android:focusable="true"
         app:cardBackgroundColor="#aee5d4"
@@ -32,19 +27,22 @@
             android:id="@+id/textUser"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:autoSizeTextType="uniform"
+            android:paddingHorizontal="10dp"
             android:gravity="center"
-            android:text="TextView"
-            android:textColor="#19452e"
+            android:text="TextViewg"
+            android:autoSizeMaxTextSize="25sp"
             android:textAlignment="center"
-            android:textSize="20sp"
+            android:textColor="#19452e"
             android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:layout_marginStart="25dp"
         android:id="@+id/resultScoreCard"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:clickable="true"
         android:focusable="true"
         app:cardBackgroundColor="#aee5d4"
@@ -53,17 +51,20 @@
         app:layout_column="1"
         app:layout_columnWeight="2"
         app:layout_row="0"
-        app:layout_rowWeight="0.5">
+        app:layout_rowWeight="0.5"
+        >
 
         <TextView
             android:id="@+id/textResult"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:autoSizeMaxTextSize="25sp"
+            android:autoSizeTextType="uniform"
             android:gravity="center"
-            android:text="TextView"
+            android:paddingHorizontal="10dp"
+            android:text="TextViewkhjhkljhkhjjkjhj"
             android:textAlignment="center"
             android:textColor="#19452e"
-            android:textSize="20sp"
             android:textStyle="bold" />
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

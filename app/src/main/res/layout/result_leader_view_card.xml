@@ -5,13 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:elevation="5dp"
-    android:padding="10dp"
-    tools:context=".Fragments.ProfileFragment">
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    android:padding="10dp" >
 
     <androidx.cardview.widget.CardView
         android:id="@+id/leaderUser"
@@ -28,19 +22,43 @@
         app:layout_rowWeight="0.5">
 
         <TextView
-            android:drawableLeft="@drawable/strike_icon"
-            android:drawableRight="@drawable/strike_icon"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
             android:id="@+id/textLeader"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:autoSizeTextType="uniform"
             android:gravity="center"
-            android:text="TextView"
-            android:textColor="#19452e"
+            android:autoSizeMaxTextSize="25sp"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:text="Text"
             android:textAlignment="center"
+            android:textColor="#19452e"
             android:textSize="20sp"
             android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/iconImageOne"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="12dp"
+            android:layout_gravity="left"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:src="@drawable/strike_icon" />
+
+        <ImageView
+            android:id="@+id/iconImageTwo"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="right"
+            android:adjustViewBounds="true"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="12dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/strike_icon" />
+
     </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

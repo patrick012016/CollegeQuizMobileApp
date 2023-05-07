@@ -31,6 +31,7 @@
             app:layout_rowWeight="0.5">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutLargeA"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
@@ -45,7 +46,7 @@
                     android:paddingEnd="5dp"
                     android:text="TextVi  dadse asd ad ad adas ad ads "
                     android:textAlignment="center"
-                    android:textColor="#19452e"
+                    android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:text="Odpowiedź A"
                     android:textAlignment="center"
-                    android:textColor="#19452e"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:autoSizeTextType="uniform"
@@ -82,6 +83,7 @@
             app:layout_rowWeight="0.5">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutLargeB"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
@@ -96,7 +98,7 @@
                     android:paddingEnd="5dp"
                     android:text="TextView"
                     android:textAlignment="center"
-                    android:textColor="#19452e"
+                    android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -109,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:text="Odpowiedź B"
                     android:textAlignment="center"
-                    android:textColor="#19452e"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:autoSizeTextType="uniform"
@@ -133,6 +135,7 @@
             app:layout_rowWeight="0.5">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutLargeC"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
@@ -147,7 +150,7 @@
                     android:paddingEnd="5dp"
                     android:text="TextView"
                     android:textAlignment="center"
-                    android:textColor="#19452e"
+                    android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -160,7 +163,7 @@
                     android:layout_height="wrap_content"
                     android:text="Odpowiedź C"
                     android:textAlignment="center"
-                    android:textColor="#19452e"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:autoSizeTextType="uniform"
@@ -184,6 +187,7 @@
             app:layout_rowWeight="0.5">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutLargeD"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
@@ -198,7 +202,7 @@
                     android:paddingEnd="5dp"
                     android:text="TextView"
                     android:textAlignment="center"
-                    android:textColor="#19452e"
+                    android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -211,7 +215,7 @@
                     android:layout_height="wrap_content"
                     android:text="Odpowiedź D"
                     android:textAlignment="center"
-                    android:textColor="#19452e"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:autoSizeTextType="uniform"
@@ -235,6 +239,7 @@
             app:layout_rowWeight="0.5">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutLargeE"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
@@ -249,7 +254,7 @@
                     android:paddingEnd="5dp"
                     android:text="TextVi  dadse asd ad ad adas ad ads "
                     android:textAlignment="center"
-                    android:textColor="#19452e"
+                    android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -262,7 +267,7 @@
                     android:layout_height="wrap_content"
                     android:text="Odpowiedź E"
                     android:textAlignment="center"
-                    android:textColor="#19452e"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:autoSizeTextType="uniform"
@@ -286,6 +291,7 @@
             app:layout_rowWeight="0.5">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutLargeF"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
@@ -300,7 +306,7 @@
                     android:paddingEnd="5dp"
                     android:text="TextVi"
                     android:textAlignment="center"
-                    android:textColor="#19452e"
+                    android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -313,7 +319,7 @@
                     android:layout_height="wrap_content"
                     android:text="Odpowiedź F"
                     android:textAlignment="center"
-                    android:textColor="#19452e"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:autoSizeTextType="uniform"

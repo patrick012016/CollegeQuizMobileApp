@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
                             motionLayout.setAlpha(1);
                             Toast.makeText(MainActivity.this,
-                                    "Nie udało nawiązać połączenia", Toast.LENGTH_LONG).show();
+                                    "Nie udało nawiązać połączenia", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

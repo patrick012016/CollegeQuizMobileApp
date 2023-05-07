@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,31 +82,37 @@ public class SixAnswersFragment extends Fragment {
 
         cardA.setOnClickListener(v -> {
             answerSend(0);
+            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
             blockCardResult(cardA, cardB, cardC, cardD, cardE, cardF);
             setScale(cardA);
         });
         cardB.setOnClickListener(v -> {
             answerSend(1);
+            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
             blockCardResult(cardA, cardB, cardC, cardD, cardE, cardF);
             setScale(cardB);
         });
         cardC.setOnClickListener(v -> {
             answerSend(2);
+            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
             blockCardResult(cardA, cardB, cardC, cardD, cardE, cardF);
             setScale(cardC);
         });
         cardD.setOnClickListener(v -> {
             answerSend(3);
+            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
             blockCardResult(cardA, cardB, cardC, cardD, cardE, cardF);
             setScale(cardD);
         });
         cardE.setOnClickListener(v -> {
             answerSend(4);
+            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
             blockCardResult(cardA, cardB, cardC, cardD, cardE, cardF);
             setScale(cardE);
         });
         cardF.setOnClickListener(v -> {
             answerSend(5);
+            view.performHapticFeedback(HapticFeedbackConstants.CONFIRM);
             blockCardResult(cardA, cardB, cardC, cardD, cardE, cardF);
             setScale(cardF);
         });

@@ -30,6 +30,7 @@
             app:layout_rowWeight="0.5">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutTrue"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
@@ -41,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:text="Prawda"
                     android:textAlignment="center"
-                    android:textColor="#19452e"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:autoSizeTextType="uniform"
@@ -65,6 +66,7 @@
             app:layout_rowWeight="0.5">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutFalse"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
@@ -76,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:text="Fałsz"
                     android:textAlignment="center"
-                    android:textColor="#19452e"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:autoSizeTextType="uniform"
