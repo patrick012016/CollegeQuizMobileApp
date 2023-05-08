@@ -7,7 +7,7 @@
     android:background="@drawable/backgroundmobileline"
     android:orientation="horizontal"
     app:layout_constraintGuide_percent="50"
-    tools:context=".Fragments.HomeFragment">
+    tools:context="pl.dominikpiskor.quizapp.Fragments.HomeFragment">
 
     <ImageButton
         android:id="@+id/qrButton"

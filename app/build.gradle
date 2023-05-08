@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.quizapp'
+    namespace 'pl.dominikpiskor.quizapp'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.quizapp"
+        applicationId "pl.dominikpiskor.quizapp"
         minSdk 24
         targetSdk 33
         versionCode 1

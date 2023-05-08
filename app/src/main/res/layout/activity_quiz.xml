@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/backgroundmobiletopv2"
-    tools:context=".Quiz_Activity">
+    tools:context="pl.dominikpiskor.quizapp.Quiz_Activity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline20percent"

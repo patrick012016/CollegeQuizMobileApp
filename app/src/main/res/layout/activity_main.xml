@@ -8,7 +8,7 @@
     android:background="@drawable/backgroundmobiletopbottom"
     android:visibility="visible"
     app:layoutDescription="@xml/activity_main_scene"
-    tools:context=".MainActivity">
+    tools:context="pl.dominikpiskor.quizapp.MainActivity">
 
     <ProgressBar
         android:id="@+id/progressBarAuth"

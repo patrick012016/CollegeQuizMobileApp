@@ -18,27 +18,27 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ResultActivity"
+            android:name="pl.dominikpiskor.quizapp.ResultActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LobbyActivity"
+            android:name="pl.dominikpiskor.quizapp.LobbyActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Quiz_Activity"
+            android:name="pl.dominikpiskor.quizapp.Quiz_Activity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MenuActivity"
+            android:name="pl.dominikpiskor.quizapp.MenuActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name="pl.dominikpiskor.quizapp.MainActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StartActivity"
+            android:name="pl.dominikpiskor.quizapp.StartActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

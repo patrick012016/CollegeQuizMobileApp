@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutDescription="@xml/activity_start_scene"
-    tools:context=".StartActivity">
+    tools:context="pl.dominikpiskor.quizapp.StartActivity">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

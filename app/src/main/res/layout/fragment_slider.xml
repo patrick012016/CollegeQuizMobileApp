@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="10dp"
-    tools:context=".GameFragments.SliderFragment">
+    tools:context="pl.dominikpiskor.quizapp.GameFragments.SliderFragment">
 
     <com.google.android.material.slider.RangeSlider
         android:id="@+id/rangeSlider"
