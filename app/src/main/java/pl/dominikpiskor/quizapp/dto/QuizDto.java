@@ -2,8 +2,10 @@ package pl.dominikpiskor.quizapp.dto;
 
 import java.util.ArrayList;
 
+/**
+ * The class responsible for mapping main data for providing information about the quiz
+ */
 public class QuizDto {
-
     public long QuestionId;
     public String Question;
     public long QuestionType;

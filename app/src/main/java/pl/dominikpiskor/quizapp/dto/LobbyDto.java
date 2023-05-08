@@ -1,7 +1,9 @@
 package pl.dominikpiskor.quizapp.dto;
 
+/**
+ * The class responsible for mapping data from lobby view
+ */
 public class LobbyDto {
-
     boolean isGood;
     String screenType;
     String quizName;

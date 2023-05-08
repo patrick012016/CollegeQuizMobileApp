@@ -1,5 +1,8 @@
 package pl.dominikpiskor.quizapp.dto;
 
+/**
+ * The class responsible for mapping timer time from server
+ */
 public class TimerDto {
     long Remaining;
     long Total;

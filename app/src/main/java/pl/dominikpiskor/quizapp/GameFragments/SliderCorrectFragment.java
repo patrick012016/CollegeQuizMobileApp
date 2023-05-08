@@ -15,24 +15,37 @@ import pl.dominikpiskor.quizapp.dto.CorrectSliderDto;
 import com.google.android.material.slider.RangeSlider;
 import com.google.gson.Gson;
 
+/**
+ * The helper class responsible for rendering sliders with correct answer
+ */
 public class SliderCorrectFragment extends Fragment {
 
     private final Gson gson = new Gson();
+
+    /**
+     * Initializing items from the view
+     */
     RangeSlider rangeSlider;
     RangeSlider rangeSliderMid;
-    RangeSlider rangeSliderMain;
+
     public SliderCorrectFragment() {}
+
+    //==============================================================================================
 
     public static SliderCorrectFragment newInstance(String param1, String param2) {
         SliderCorrectFragment fragment = new SliderCorrectFragment();
         return fragment;
     }
 
+    //==============================================================================================
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
+
+    //==============================================================================================
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -41,9 +54,7 @@ public class SliderCorrectFragment extends Fragment {
         rangeSlider = getView().findViewById(R.id.rangeSliderCorrect);
         rangeSliderMid = getView().findViewById(R.id.rangeSliderCorrectMiddle);
 
-
-       String dataCorrect = bundle.getString("dataSlider");
-
+        String dataCorrect = bundle.getString("dataSlider");
         CorrectSliderDto[] correctSliderDto = gson.fromJson(dataCorrect, CorrectSliderDto[].class);
 
         rangeSliderMid.setValueFrom(correctSliderDto[0].getAnswerMin());
@@ -56,6 +67,8 @@ public class SliderCorrectFragment extends Fragment {
         rangeSlider.setStepSize(correctSliderDto[0].getAnswerStep());
         rangeSlider.setValues((float) correctSliderDto[0].getAnswerMinCounted(), (float) correctSliderDto[0].getAnswerMaxCounted());
     }
+
+    //==============================================================================================
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

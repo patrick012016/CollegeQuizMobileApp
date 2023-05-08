@@ -1,5 +1,8 @@
 package pl.dominikpiskor.quizapp.dto;
 
+/**
+ * The class responsible for mapping correct data quiz from server
+ */
 public class CorrectAnswersDto {
     String AnswerName;
     String key;

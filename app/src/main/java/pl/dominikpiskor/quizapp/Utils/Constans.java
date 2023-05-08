@@ -2,10 +2,13 @@ package pl.dominikpiskor.quizapp.Utils;
 
 import okhttp3.MediaType;
 
+/**
+ * The class stores constants and helper variables that are globally available
+ */
 public class Constans {
 
-    /*
-     * Zmienne stałe globalne
+    /**
+     * Variable declaration
      */
     public static final String message = "Podaj poprawne dane!";
     public static final String messageLobbyWait = "Oczekiwanie na uruchomienie " +
@@ -20,9 +23,6 @@ public class Constans {
     public static final String CODE_ERROR = "Podany kod nie istnieje lub uległ przedawnieniu";
 
     public static final String[] arrayResultColors = {"#1fd2e6", "#29e4c5", "#55e5a0", "#bbf5cd", "#bbf5cd"};
-
-
-    //==============================================================================================
 
     private Constans() {
     }

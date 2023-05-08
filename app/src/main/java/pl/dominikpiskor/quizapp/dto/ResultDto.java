@@ -2,8 +2,10 @@ package pl.dominikpiskor.quizapp.dto;
 
 import java.io.Serializable;
 
+/**
+ * The class responsible for mapping correct data during summary view
+ */
 public class ResultDto implements Serializable {
-
     String Username;
     long Score;
     boolean isLast;

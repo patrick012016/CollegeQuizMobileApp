@@ -12,26 +12,35 @@ import android.view.ViewGroup;
 
 import pl.dominikpiskor.quizapp.R;
 
-
+/**
+ * The class responsible for rendering the dynamic user settings view
+ */
 public class SettingsFragment extends Fragment {
 
-
     public SettingsFragment() { }
+
+    //==============================================================================================
 
     public static SettingsFragment newInstance(String param1, String param2) {
         SettingsFragment fragment = new SettingsFragment();
         return fragment;
     }
 
+    //==============================================================================================
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    //==============================================================================================
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
+    //==============================================================================================
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

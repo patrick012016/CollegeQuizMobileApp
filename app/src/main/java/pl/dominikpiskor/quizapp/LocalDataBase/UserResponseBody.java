@@ -1,15 +1,16 @@
 package pl.dominikpiskor.quizapp.LocalDataBase;
 
+/**
+ * The class responsible for storing the returned data by the server after a successful login
+ */
 public class UserResponseBody {
 
+    /**
+     * Variable declaration
+     */
     String isGood;
     String token;
 
-    //==============================================================================================
-
-    /*
-     * Klasa odpowiedzielna za przechowywanie zwróconych danych przez serwer po udanym zalogowaniu
-     */
     public UserResponseBody(String isGood, String token) {
         this.isGood = isGood;
         this.token = token;

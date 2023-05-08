@@ -3,16 +3,21 @@ package pl.dominikpiskor.quizapp.LocalDataBase;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+/**
+ * The class responsible for storing data and handling logging in and logging out user from the app
+ */
 public class UserLocalStore {
 
+    /**
+     * Variable declaration
+     */
     private static UserLocalStore instance;
     public static final String SP_NAME = "userDetails";
     SharedPreferences userLocalDatabase;
 
     //==============================================================================================
 
-    public static UserLocalStore getInstance(Context context)
-    {
+    public static UserLocalStore getInstance(Context context) {
         if (instance == null)
             instance = new UserLocalStore(context);
         return instance;
@@ -20,10 +25,6 @@ public class UserLocalStore {
 
     //==============================================================================================
 
-    /*
-     * Klasa odpowiedzielna za przechowywanie danych oraz obsługę zalogowywania oraz wylogowywania
-     * użytkownika z aplikacji
-     */
     private UserLocalStore(Context context) {
         userLocalDatabase = context.getSharedPreferences(SP_NAME, 0);
     }
@@ -33,7 +34,6 @@ public class UserLocalStore {
     public String getUserLocalDatabase() {
         return userLocalDatabase.getString("token", "");
     }
-
 
     //==============================================================================================
 
@@ -67,11 +67,9 @@ public class UserLocalStore {
         if (userLocalDatabase.getBoolean("loggedIn", false) == false) {
             return null;
         }
-
         String login = userLocalDatabase.getString("login", "");
         String password = userLocalDatabase.getString("password", "");
         String token = userLocalDatabase.getString("token", "");
-
         UserLogedData userLogedData = new UserLogedData(login, password, token);
         return userLogedData;
     }

@@ -4,15 +4,15 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+/**
+ * The class responsible for transferring data between fragments and activities
+ */
 public class ItemViewModel extends ViewModel {
 
     private final MutableLiveData<String> selectedItem = new MutableLiveData<String>();
 
     //==============================================================================================
 
-    /*
-     * Klasa odpowiedzialna za przesyłanie danych pomiędzy fragmentami a aktywnościami
-     */
     public void setData(String item) {
         selectedItem.setValue(item);
     }

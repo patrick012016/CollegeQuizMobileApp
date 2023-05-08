@@ -27,20 +27,29 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * The class responsible for rendering the dynamic quiz with two answers (true/false)
+ */
 public class TrueFalseFragment extends Fragment {
+
     private HubConnectivity hubConnectivity = HubConnectivity.getInstance(HUBURL);
+
+    /**
+     * Initializing items from the view
+     */
     CardView cardA, cardB;
-    TextView answerA, answerB;
     String qeusetionId, mydataAnswers;
 
-    public TrueFalseFragment() {
-        // Required empty public constructor
-    }
+    public TrueFalseFragment() { }
+
+    //==============================================================================================
 
     public static TrueFalseFragment newInstance() {
         TrueFalseFragment fragment = new TrueFalseFragment();
         return fragment;
     }
+
+    //==============================================================================================
 
     @Override
     public void onResume() {
@@ -48,10 +57,14 @@ public class TrueFalseFragment extends Fragment {
         unlockCardResult();
     }
 
+    //==============================================================================================
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
+    //==============================================================================================
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -84,11 +97,24 @@ public class TrueFalseFragment extends Fragment {
         });
     }
 
+    //==============================================================================================
+
+    /**
+     * A helper method responsible for setting the size of the clicked card
+     * @param one checked card
+     */
     public void setScale(CardView one) {
         one.setScaleX(0.85f);
         one.setScaleY(0.85f);
     }
 
+    //==============================================================================================
+
+    /**
+     * A helper method responsible for blocking clicked card
+     * @param one unchecked card
+     * @param two unchecked card
+     */
     public void blockCardResult(CardView one, CardView two) {
         one.setFocusable(false);
         one.setClickable(false);
@@ -96,6 +122,11 @@ public class TrueFalseFragment extends Fragment {
         two.setClickable(false);
     }
 
+    //==============================================================================================
+
+    /**
+     * A helper method responsible for resetting default view parameters
+     */
     public void unlockCardResult() {
         cardA.setFocusable(true);
         cardA.setClickable(true);
@@ -107,12 +138,20 @@ public class TrueFalseFragment extends Fragment {
         cardB.setScaleX(1);
     }
 
+    //==============================================================================================
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_true_false, container, false);
     }
 
+    //==============================================================================================
+
+    /**
+     * The method responsible for sending answers selected by the user
+     * @param idAnswer id of the selected answer
+     */
     public void answerSend(int idAnswer) {
         String ipConnection = hubConnectivity.getIpConenction();
         OkHttpClient client = new OkHttpClient();
@@ -128,9 +167,6 @@ public class TrueFalseFragment extends Fragment {
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
-            /*
-             * Jeśli połączenie nie zostanie nawiązane z serwerem
-             */
             @Override
             public void onFailure(Call call, IOException e) { e.printStackTrace();}
             @Override

@@ -44,36 +44,47 @@ import java.util.stream.Collectors;
 
 import pl.dominikpiskor.quizapp.Utils.Constans;
 
+/**
+ * The class responsible for rendering and replacing the quiz gameplay views and answers
+ */
 public class Quiz_Activity extends AppCompatActivity {
 
     QuizDto quizDto;
     private final Gson gson = new Gson();
     private HubConnectivity hubConnectivity = HubConnectivity.getInstance(Constans.HUBURL);
+
+    /**
+     * Initializing items from the view
+     */
     FragmentManager fragmentManager = getSupportFragmentManager();
     Bundle bundle, bundle1;
-
-    //==============================================================================================
     TextView questionCounter;
     TextView question;
     ImageView imageIsMulti;
+
     //==============================================================================================
+
     @Override
     public void onBackPressed() { }
+
+    //==============================================================================================
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
-
-        /*
-         * Inicjowanie elementów z widoku
-         */
         questionCounter = findViewById(R.id.timeClock);
         question = findViewById(R.id.question);
         imageIsMulti = findViewById(R.id.imageIsMultiCorrect);
         game();
     }
 
+    //==============================================================================================
+
+    /**
+     * The method responsible for handling the main game, handling individual hubs and rendering the
+     * view depending on the type of question and quiz
+     */
     public void game() {
         hubConnectivity.onGame(message -> {
 
@@ -279,7 +290,6 @@ public class Quiz_Activity extends AppCompatActivity {
             }
         });
 
-
         hubConnectivity.onDisconnect(message -> {
             runOnUiThread(() -> Toast.makeText(Quiz_Activity.this,
                     "Rozłączono z quizem", Toast.LENGTH_SHORT).show());
@@ -287,11 +297,21 @@ public class Quiz_Activity extends AppCompatActivity {
         });
     }
 
+    //==============================================================================================
+
+    /**
+     * The method responsible for dynamically setting the content of the question
+     */
     public void setDataQuiz() {
         question.setTextColor(Color.parseColor("#19452e"));
         question.setText(quizDto.getQuestion());
     }
 
+    //==============================================================================================
+
+    /**
+     * The method responsible for dynamically setting timer question
+     */
     public void timerQuestion() {
         hubConnectivity.onQuestionTimer(messageTime -> {
             TimerDto timer = gson.fromJson(messageTime, TimerDto.class);
@@ -302,6 +322,9 @@ public class Quiz_Activity extends AppCompatActivity {
 
     //==============================================================================================
 
+    /**
+     * The method responsible for dynamically replacing views
+     */
     private void replaceFragment(Fragment fragmentQuizMain, int frameLayoutQuiz, Fragment fragmentImageMain,
                                  int frameLayoutImage, String data, String id, String img) {
         bundle.putString("data", data);
@@ -319,6 +342,11 @@ public class Quiz_Activity extends AppCompatActivity {
         }
     }
 
+    //==============================================================================================
+
+    /**
+     * The method responsible for dynamically replacing view (slider type quiz)
+     */
     private void replaceFragmentSlider(Fragment fragmentQuizMain, int frameLayoutQuiz, Fragment fragmentImageMain,
                                  int frameLayoutImage, String data, String id, String img) {
         bundle.putString("data", data);
@@ -336,6 +364,11 @@ public class Quiz_Activity extends AppCompatActivity {
         }
     }
 
+    //==============================================================================================
+
+    /**
+     * The method responsible for clear views
+     */
     private void fragmentClear() {
         Fragment fragmentMain = getSupportFragmentManager().findFragmentByTag("main");
         Fragment fragmentImage = getSupportFragmentManager().findFragmentByTag("image");

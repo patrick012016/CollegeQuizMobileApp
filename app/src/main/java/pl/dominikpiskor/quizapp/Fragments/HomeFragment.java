@@ -27,17 +27,21 @@ import io.github.g00fy2.quickie.QRResult;
 import io.github.g00fy2.quickie.ScanQRCode;
 import pl.dominikpiskor.quizapp.R;
 
+/**
+ * The class responsible for rendering the dynamic user home view
+ */
 public class HomeFragment extends Fragment {
 
-    /*
-     * Inicjowanie elementów z widoku
+    /**
+     * Initializing items from the view
      */
     ImageButton qrButton;
     EditText codeInput;
     Button startGame;
     String token;
-    /*
-     * Elementy odpowiedzialne za biblioteke QR
+
+    /**
+     * Elements responsible for the QR library
      * https://github.com/G00fY2/quickie
      */
     ActivityResultLauncher<?> scanQrCode = registerForActivityResult(new ScanQRCode(), this::showQR);
@@ -56,35 +60,27 @@ public class HomeFragment extends Fragment {
 
     //==============================================================================================
 
-    /*
-     * Funkcja odpowiedzialna za otwieranie okna skanera QR po wciśnięciu przycisku przez użytkownika
+    /**
+     * The function responsible for opening the QR scanner window after pressing the button by the user
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         qrButton = getView().findViewById(R.id.qrButton);
         codeInput = getView().findViewById(R.id.qrInput);
         startGame = getView().findViewById(R.id.startButton);
-        startGame.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                token = codeInput.getText().toString();
-                if (codeInput.getText().toString() != null && Pattern.matches(CODE_REGEX, token)) {
+        startGame.setOnClickListener(v -> {
+            token = codeInput.getText().toString();
+            if (codeInput.getText().toString() != null && Pattern.matches(CODE_REGEX, token)) {
 
-                    Intent intent = new Intent(getActivity(), LobbyActivity.class);
-                    intent.putExtra("token", token);
-                    startActivity(intent);
-                }
-                else {
-                    Toast.makeText(getActivity(), "Podaj odpowiedni kod!", Toast.LENGTH_SHORT).show();
-                }
+                Intent intent = new Intent(getActivity(), LobbyActivity.class);
+                intent.putExtra("token", token);
+                startActivity(intent);
+            }
+            else {
+                Toast.makeText(getActivity(), "Podaj odpowiedni kod!", Toast.LENGTH_SHORT).show();
             }
         });
-        qrButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                scanQrCode.launch(null);
-            }
-        });
+        qrButton.setOnClickListener(view1 -> scanQrCode.launch(null));
     }
 
     //==============================================================================================
@@ -92,15 +88,13 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false);
-
     }
 
     //==============================================================================================
 
-    /*
-     * Funkcja pobierająca dane z kodu QR
+    /**
+     * A function that downloads data from a QR code
      * https://github.com/G00fY2/quickie
      */
     private void showQR(QRResult result) {

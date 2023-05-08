@@ -21,22 +21,26 @@ import java.util.Arrays;
 
 import pl.dominikpiskor.quizapp.Utils.Constans;
 
+/**
+ * The class responsible for rendering result view
+ */
 public class ResultActivity extends AppCompatActivity {
 
     private HubConnectivity hubConnectivity = HubConnectivity.getInstance(Constans.HUBURL);
 
+    /**
+     * Initializing items from the view
+     */
     CardView userCard;
     CardView resultCard;
     CardView leaderCard;
-
     TextView userText;
     TextView userResultText;
     TextView userLaderText;
     LinearLayout linearLayoutResult;
     ResultDto[] arrayResult;
 
-    @Override
-    public void onBackPressed() { }
+    //==============================================================================================
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,17 @@ public class ResultActivity extends AppCompatActivity {
         setResultView(Arrays.stream(arrayResult).count());
     }
 
+    //==============================================================================================
+
+    @Override
+    public void onBackPressed() { }
+
+    //==============================================================================================
+
+    /**
+     * The method responsible for creating a summary view and assigning points to users
+     * @param countUser the maximum number of players (in the game can be displayed maximum 5)
+     */
     public void setResultView(long countUser) {
         for (int i = 0; i < countUser-1; i++) {
             View viewResultView = getLayoutInflater().inflate(R.layout.result_view_card, null);
@@ -93,7 +108,6 @@ public class ResultActivity extends AppCompatActivity {
             linearLayoutResult.addView(leaderResultView);
         }
 
-
         hubConnectivity.onGame(message -> {
             finish();
         });
@@ -103,18 +117,5 @@ public class ResultActivity extends AppCompatActivity {
                     "Rozłączono z quizem", Toast.LENGTH_SHORT).show());
             finish();
         });
-
-//        ValueAnimator animator = ValueAnimator.ofFloat(0, 200000);
-//
-//        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//            @Override
-//            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-//                float value = (float) animator.getAnimatedValue();
-//                animator.setDuration(10000);
-//                textView2.setText(valueAnimator.getAnimatedValue().toString());
-//            }
-//        });
-//        animator.start();
-
     }
 }

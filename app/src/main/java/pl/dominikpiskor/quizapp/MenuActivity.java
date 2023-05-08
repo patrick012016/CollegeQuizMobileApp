@@ -22,9 +22,14 @@ import pl.dominikpiskor.quizapp.Fragments.SettingsFragment;
 import pl.dominikpiskor.quizapp.LocalDataBase.UserLocalStore;
 import pl.dominikpiskor.quizapp.databinding.ActivityMenuBinding;
 
-
+/**
+ * The class responsible for rendering the main menu view
+ */
 public class MenuActivity extends AppCompatActivity {
 
+    /**
+     * Initializing items from the view
+     */
     UserLocalStore userLocalStore;
     ActivityMenuBinding binding;
 
@@ -35,15 +40,10 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        /*
-         * Parametry startowe elementów
-         */
+
         userLocalStore = UserLocalStore.getInstance(this);
         replaceFragment(new HomeFragment());
 
-        /*
-         * Podmienianie fragmentów widoku
-         */
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()) {
 
@@ -65,6 +65,10 @@ public class MenuActivity extends AppCompatActivity {
 
     //==============================================================================================
 
+    /**
+     * The method responsible for dynamically replacing views
+     * @param fragment dynamic view
+     */
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -74,6 +78,10 @@ public class MenuActivity extends AppCompatActivity {
 
     //==============================================================================================
 
+    /**
+     * The method responsible for creating a notification after the user logs out
+     * @param view view
+     */
     public void logoutUser(View view) {
         userLocalStore.clearUserData();
         userLocalStore.setUserLoggedIn(false);
@@ -104,6 +112,10 @@ public class MenuActivity extends AppCompatActivity {
         System.exit(0);
     }
 
+    /**
+     * The method responsible for opening the hyperlink of the application rule terms
+     * @param view view
+     */
     public void termOpen(View view) {
         Uri uri = Uri.parse("https://dominikpiskor.pl/Home/Privacy");
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);

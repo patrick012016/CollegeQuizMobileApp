@@ -2,6 +2,9 @@ package pl.dominikpiskor.quizapp.dto;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+/**
+ * The class responsible for mapping correct data and binding them with view
+ */
 public class BindedAnswers {
     private ConstraintLayout constraintLayout;
     private String answer;

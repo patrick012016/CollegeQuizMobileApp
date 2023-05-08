@@ -27,28 +27,37 @@ import okhttp3.Request;
 import okhttp3.Response;
 import pl.dominikpiskor.quizapp.R;
 
+/**
+ * The class responsible for rendering the dynamic image view in the quiz with six answers
+ */
 public class BodyPopupImageFragment extends Fragment {
 
+    /**
+     * Initializing items from the view
+     */
     AppCompatButton appCompatButton;
     Dialog dialog;
     String imgUrl;
     Bitmap bitmap;
     ImageView imageDialog;
 
-    public BodyPopupImageFragment() {
-        // Required empty public constructor
-    }
+    public BodyPopupImageFragment() { }
+
+    //==============================================================================================
 
     public static BodyPopupImageFragment newInstance() {
         BodyPopupImageFragment fragment = new BodyPopupImageFragment();
         return fragment;
     }
 
+    //==============================================================================================
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
     }
+
+    //==============================================================================================
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -63,6 +72,8 @@ public class BodyPopupImageFragment extends Fragment {
         appCompatButton.setOnClickListener(view1 -> popImage());
     }
 
+    //==============================================================================================
+
     @Override
     public void onPause() {
         super.onPause();
@@ -70,12 +81,19 @@ public class BodyPopupImageFragment extends Fragment {
             dialog.cancel();
     }
 
+    //==============================================================================================
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_body_popup_image, container, false);
     }
 
+    //==============================================================================================
+
+    /**
+     * The method responsible for showing the zoom image included in the quiz
+     */
     public void popImage() {
         dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.fragment_body_image);
@@ -87,6 +105,11 @@ public class BodyPopupImageFragment extends Fragment {
         dialog.show();
     }
 
+    //==============================================================================================
+
+    /**
+     * The method responsible for downloading data about the image for the quiz
+     */
     public void imageDownload(String source) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -97,9 +120,6 @@ public class BodyPopupImageFragment extends Fragment {
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
-            /*
-             * Jeśli połączenie nie zostanie nawiązane z serwerem
-             */
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();

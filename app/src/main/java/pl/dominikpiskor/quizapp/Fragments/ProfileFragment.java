@@ -1,5 +1,4 @@
 package pl.dominikpiskor.quizapp.Fragments;
-
 import static android.text.Html.FROM_HTML_MODE_COMPACT;
 
 import android.os.Bundle;
@@ -30,8 +29,14 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * The class responsible for rendering the dynamic user profile view
+ */
 public class ProfileFragment extends Fragment {
 
+    /**
+     * Initializing items from the view
+     */
     TextView username;
     TextView firstName;
     TextView lastName;
@@ -45,16 +50,21 @@ public class ProfileFragment extends Fragment {
     public ProfileFragment() {
     }
 
+    //==============================================================================================
+
     public static ProfileFragment newInstance(String param1, String param2) {
         ProfileFragment fragment = new ProfileFragment();
         return fragment;
     }
 
+    //==============================================================================================
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
+
+    //==============================================================================================
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -69,14 +79,9 @@ public class ProfileFragment extends Fragment {
         constraintLayout.setAlpha(0.4f);
         progressBar.setVisibility(View.VISIBLE);
         downloadInfo();
-
-//        username.setText(userInfoDto.getUsername());
-//        username.setText(userInfoDto.getUsername());
-//        username.setText(userInfoDto.getUsername());
-//        username.setText(userInfoDto.getUsername());
-
-
     }
+
+    //==============================================================================================
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,7 +89,11 @@ public class ProfileFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
+    //==============================================================================================
 
+    /**
+     * The method responsible for retrieving data about the logged user
+     */
     public void downloadInfo()
     {
         OkHttpClient client = new OkHttpClient();
@@ -96,9 +105,6 @@ public class ProfileFragment extends Fragment {
 
         client.newCall(request).enqueue(new Callback() {
 
-            /*
-             * Jeśli połączenie nie zostanie nawiązane z serwerem
-             */
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
@@ -108,7 +114,6 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-
                 if (response.code() == 200) {
                     userInfoDto = gson.fromJson(response.body().string(), UserInfoDto.class);
                     if (getActivity() != null) {
@@ -145,5 +150,4 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
-
 }

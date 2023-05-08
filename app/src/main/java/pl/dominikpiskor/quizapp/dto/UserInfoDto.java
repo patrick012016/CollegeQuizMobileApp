@@ -1,5 +1,8 @@
 package pl.dominikpiskor.quizapp.dto;
 
+/**
+ * The class responsible for mapping data for the user profile
+ */
 public class UserInfoDto {
     String username;
     String firstName;

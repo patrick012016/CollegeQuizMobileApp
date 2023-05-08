@@ -28,29 +28,45 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * The class responsible for rendering the dynamic quiz with six answers (one correct)
+ */
 public class SixAnswersFragment extends Fragment {
+
     private HubConnectivity hubConnectivity = HubConnectivity.getInstance(HUBURL);
+
+    /**
+     * Initializing items from the view
+     */
     CardView cardA, cardB, cardC, cardD, cardE, cardF;
     TextView answerA, answerB, answerC, answerD, answerE, answerF;
     String qeusetionId, mydataAnswers;
 
     public SixAnswersFragment() { }
 
+    //==============================================================================================
+
     public static SixAnswersFragment newInstance() {
         SixAnswersFragment fragment = new SixAnswersFragment();
         return fragment;
     }
+
+    //==============================================================================================
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    //==============================================================================================
+
     @Override
     public void onResume() {
         super.onResume();
         unlockCardResult();
     }
+
+    //==============================================================================================
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -136,16 +152,36 @@ public class SixAnswersFragment extends Fragment {
         });
     }
 
+    //==============================================================================================
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_six_answers, container, false);
     }
+
+    //==============================================================================================
+
+    /**
+     * A helper method responsible for setting the size of the clicked card
+     * @param one checked card
+     */
     public void setScale(CardView one) {
         one.setScaleX(0.85f);
         one.setScaleY(0.85f);
     }
 
+    //==============================================================================================
+
+    /**
+     * A helper method responsible for blocking clicked card
+     * @param one unchecked card
+     * @param two unchecked card
+     * @param three unchecked card
+     * @param four unchecked card
+     * @param five unchecked card
+     * @param six unchecked card
+     */
     public void blockCardResult(CardView one, CardView two, CardView three, CardView four, CardView five, CardView six) {
         one.setFocusable(false);
         one.setClickable(false);
@@ -161,6 +197,11 @@ public class SixAnswersFragment extends Fragment {
         six.setClickable(false);
     }
 
+    //==============================================================================================
+
+    /**
+     * A helper method responsible for resetting default view parameters
+     */
     public void unlockCardResult() {
         cardA.setFocusable(true);
         cardA.setClickable(true);
@@ -188,6 +229,12 @@ public class SixAnswersFragment extends Fragment {
         cardF.setScaleX(1);
     }
 
+    //==============================================================================================
+
+    /**
+     * The method responsible for sending answers selected by the user
+     * @param idAnswer id of the selected answer
+     */
     public void answerSend(int idAnswer) {
         String ipConnection = hubConnectivity.getIpConenction();
         OkHttpClient client = new OkHttpClient();
@@ -203,9 +250,6 @@ public class SixAnswersFragment extends Fragment {
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
-            /*
-             * Jeśli połączenie nie zostanie nawiązane z serwerem
-             */
             @Override
             public void onFailure(Call call, IOException e) { e.printStackTrace();}
             @Override

@@ -30,8 +30,16 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * The class responsible for rendering the dynamic quiz with slider type
+ */
 public class SliderFragment extends Fragment {
+
     private HubConnectivity hubConnectivity = HubConnectivity.getInstance(HUBURL);
+
+    /**
+     * Initializing items from the view
+     */
     String qeusetionId, mydataAnswers;
     RangeSlider rangeSlider;
     QuizDto quizDto;
@@ -41,10 +49,14 @@ public class SliderFragment extends Fragment {
 
     public SliderFragment() { }
 
+    //==============================================================================================
+
     public static SliderFragment newInstance() {
         SliderFragment fragment = new SliderFragment();
         return fragment;
     }
+
+    //==============================================================================================
 
     @Override
     public void onResume() {
@@ -54,10 +66,14 @@ public class SliderFragment extends Fragment {
         rangeSlider.setFocusable(true);
     }
 
+    //==============================================================================================
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
+    //==============================================================================================
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -99,9 +115,23 @@ public class SliderFragment extends Fragment {
             rangeSlider.setClickable(false);
             rangeSlider.setFocusable(false);
         });
-
     }
 
+    //==============================================================================================
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_slider, container, false);
+    }
+
+    //==============================================================================================
+
+    /**
+     * The method responsible for sending answers selected by the user
+     * @param min min selected value
+     * @param max max selected value
+     */
     public void answerSend(int min, int max) {
         String ipConnection = hubConnectivity.getIpConenction();
         OkHttpClient client = new OkHttpClient();
@@ -118,19 +148,10 @@ public class SliderFragment extends Fragment {
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
-            /*
-             * Jeśli połączenie nie zostanie nawiązane z serwerem
-             */
             @Override
             public void onFailure(Call call, IOException e) { e.printStackTrace();}
             @Override
             public void onResponse(Call call, Response response) throws IOException { }
         });
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_slider, container, false);
     }
 }

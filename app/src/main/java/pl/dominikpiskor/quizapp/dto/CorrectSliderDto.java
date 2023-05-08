@@ -1,5 +1,8 @@
 package pl.dominikpiskor.quizapp.dto;
 
+/**
+ * The class responsible for mapping correct data for slider question type
+ */
 public class CorrectSliderDto {
     String AnswerName;
     int AnswerCorrect;
@@ -9,7 +12,8 @@ public class CorrectSliderDto {
     int AnswerMaxCounted;
     int AnswerStep;
 
-    public CorrectSliderDto(String answerName, int answerCorrect, int answerMin, int answerMax, int answerMinCounted, int answerMaxCounted, int answerStep) {
+    public CorrectSliderDto(String answerName, int answerCorrect, int answerMin, int answerMax,
+                            int answerMinCounted, int answerMaxCounted, int answerStep) {
         AnswerName = answerName;
         AnswerCorrect = answerCorrect;
         AnswerMin = answerMin;

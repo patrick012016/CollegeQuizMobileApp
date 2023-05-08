@@ -27,21 +27,30 @@ import okhttp3.Request;
 import okhttp3.Response;
 import pl.dominikpiskor.quizapp.R;
 
+/**
+ * The class responsible for rendering the dynamic image view in the quiz with four answers
+ */
 public class BodyImageFragment extends Fragment {
 
+    /**
+     * Initializing items from the view
+     */
     ImageView imageView;
     Dialog dialog;
     String imgUrl;
     Bitmap bitmap;
     ImageView imageDialog;
-    public BodyImageFragment() {
-        // Required empty public constructor
-    }
+
+    public BodyImageFragment() { }
+
+    //==============================================================================================
 
     public static BodyImageFragment newInstance() {
         BodyImageFragment fragment = new BodyImageFragment();
         return fragment;
     }
+
+    //==============================================================================================
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -52,15 +61,17 @@ public class BodyImageFragment extends Fragment {
         if(!imgUrl.isEmpty()) {
             imageDownload(imgUrl);
         }
-
         imageView.setOnClickListener(view1 -> popResizeImage());
-
     }
+
+    //==============================================================================================
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
+    //==============================================================================================
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,6 +79,11 @@ public class BodyImageFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_body_image, container, false);
     }
 
+    //==============================================================================================
+
+    /**
+     * The method responsible for showing the zoom image included in the quiz
+     */
     public void popResizeImage() {
         dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.fragment_body_image);
@@ -79,6 +95,8 @@ public class BodyImageFragment extends Fragment {
         dialog.show();
     }
 
+    //==============================================================================================
+
     @Override
     public void onPause() {
         super.onPause();
@@ -86,6 +104,11 @@ public class BodyImageFragment extends Fragment {
             dialog.cancel();
     }
 
+    //==============================================================================================
+
+    /**
+     * The method responsible for downloading data about the image for the quiz
+     */
     public void imageDownload(String source) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -96,9 +119,6 @@ public class BodyImageFragment extends Fragment {
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
-            /*
-             * Jeśli połączenie nie zostanie nawiązane z serwerem
-             */
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
@@ -114,6 +134,5 @@ public class BodyImageFragment extends Fragment {
                 }
             }
         });
-
     }
 }

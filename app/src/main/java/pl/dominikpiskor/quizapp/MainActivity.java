@@ -31,8 +31,14 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import pl.dominikpiskor.quizapp.Utils.Constans;
 
+/**
+ * The class responsible for rendering the login view and handling the login user logic
+ */
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     * Initializing items from the view
+     */
     TextView registrationText;
     TextView loginInput;
     TextView errorLogin;
@@ -41,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
     Button loginBtn;
     MotionLayout motionLayout;
     ProgressBar progressBar;
-
     UserLocalStore userLocalStore;
     private final Gson gson = new Gson();
 
@@ -51,10 +56,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        /*
-         * Inicjowanie elementów z widoku
-         */
         registrationText = findViewById(R.id.registerLink);
         loginInput = findViewById(R.id.loginInput);
         errorLogin = findViewById(R.id.spanLogin);
@@ -63,16 +64,15 @@ public class MainActivity extends AppCompatActivity {
         loginBtn = findViewById(R.id.loginBtn);
         motionLayout = findViewById(R.id.motionLayout);
         progressBar = findViewById(R.id.progressBarAuth);
-
-        /*
-         * Parametry startowe elementów wiodku
-         */
         registrationText.setMovementMethod(LinkMovementMethod.getInstance());
         userLocalStore = UserLocalStore.getInstance(this);
     }
 
     //==============================================================================================
 
+    /**
+     * The method responsible for checking if the user is already logged in on the device
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -85,12 +85,20 @@ public class MainActivity extends AppCompatActivity {
 
     //==============================================================================================
 
+    /**
+     * The helper method responsible for return logged data user
+     * @return logged user data
+     */
     private boolean authenticate() {
         return userLocalStore.getLoggedInUser() != null;
     }
 
     //==============================================================================================
 
+    /**
+     * The method responsible for user login and authorization
+     * @param view view
+     */
     public void loginUser(View view) {
         String login;
         String password;
@@ -99,9 +107,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (!isEmpty(login) && !isEmpty(password)) {
 
-            /*
-             * Łączenie do endpointu autoryzacji
-             */
             OkHttpClient client = new OkHttpClient();
             String url = "https://dominikpiskor.pl/api/v1/dotnet/AuthAPI/LoginViaApi";
             User user = new User(login, password);
@@ -117,9 +122,6 @@ public class MainActivity extends AppCompatActivity {
 
             client.newCall(request).enqueue(new Callback() {
 
-                /*
-                 * Jeśli połączenie nie zostanie nawiązane z serwerem
-                 */
                 @Override
                 public void onFailure(Call call, IOException e) {
                     e.printStackTrace();

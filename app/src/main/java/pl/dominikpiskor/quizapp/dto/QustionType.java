@@ -2,6 +2,9 @@ package pl.dominikpiskor.quizapp.dto;
 
 import java.util.Arrays;
 
+/**
+ * Enum helper class responsible for assigning types of quizzes
+ */
 public enum QustionType {
     SINGLE_FOUR_ANSWERS(1, "SINGLE_FOUR_ANSWERS"),
     TRUE_FALSE(2, "TRUE_FALSE"),

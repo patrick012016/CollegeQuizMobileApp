@@ -32,8 +32,16 @@ import okhttp3.Request;
 import okhttp3.Response;
 import pl.dominikpiskor.quizapp.Utils.Constans;
 
+/**
+ * The class responsible for rendering the waiting room view and handling the waiting room logic
+ */
 public class LobbyActivity extends AppCompatActivity {
+
     private HubConnectivity hubConnectivity = HubConnectivity.getInstance(Constans.HUBURL);
+
+    /**
+     * Initializing items from the view
+     */
     TextView lobbyWait, lobbyCounter;
     ProgressBar progressBar;
     LobbyDto lobbyDto;
@@ -51,18 +59,20 @@ public class LobbyActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String token = intent.getStringExtra("token");
         connectLobby(token);
-        buttonLeave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hubConnectivity.dispose();
-                runOnUiThread(() -> Toast.makeText(LobbyActivity.this,
-                        "Opuszczono quiz", Toast.LENGTH_SHORT).show());
-                finish();
-            }
+        buttonLeave.setOnClickListener(v -> {
+            hubConnectivity.dispose();
+            runOnUiThread(() -> Toast.makeText(LobbyActivity.this,
+                    "Opuszczono quiz", Toast.LENGTH_SHORT).show());
+            finish();
         });
     }
 
+    //==============================================================================================
 
+    /**
+     * The method responsible for timer counting
+     * @param nameQuiz
+     */
     public void startLobby (String nameQuiz) {
         progressBar.setVisibility(View.INVISIBLE);
         lobbyCounter.setTextColor(Color.parseColor("#19452e"));
@@ -70,12 +80,16 @@ public class LobbyActivity extends AppCompatActivity {
                 +  "<strong> \"" + nameQuiz + "\" </strong> uruchamia się za:", FROM_HTML_MODE_COMPACT));
     }
 
+    //==============================================================================================
+
+    /**
+     * The method responsible for joining the lobby
+     * @param item lobby code
+     */
     public void connectLobby(String item) {
         hubConnectivity.connect();
         hubConnectivity.start();
-        /*
-         * Łączenie do lobby
-         */
+
         OkHttpClient client = new OkHttpClient();
         String url = "https://dominikpiskor.pl/api/v1/dotnet/QuizSessionAPI/JoinRoomJwt/" + hubConnectivity.getIpConenction() + "/"+ item;
         Request request = new Request.Builder()
@@ -87,9 +101,6 @@ public class LobbyActivity extends AppCompatActivity {
 
         client.newCall(request).enqueue(new Callback() {
 
-            /*
-             * Jeśli połączenie nie zostanie nawiązane z serwerem
-             */
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
@@ -126,32 +137,6 @@ public class LobbyActivity extends AppCompatActivity {
         hubConnectivity.onDisconnect(onDisconnectExpression);
 
         hubConnectivity.onCounting(message -> {
-//            MediaPlayer music5 = MediaPlayer.create(LobbyActivity.this, R.raw.five);
-//            MediaPlayer music4 = MediaPlayer.create(LobbyActivity.this, R.raw.four);
-//            MediaPlayer music3 = MediaPlayer.create(LobbyActivity.this, R.raw.three);
-//            MediaPlayer music2 = MediaPlayer.create(LobbyActivity.this, R.raw.two);
-//            MediaPlayer music1 = MediaPlayer.create(LobbyActivity.this, R.raw.one);
-//
-//            if(Objects.equals(message, "5")) {
-//                music5.start();
-//            }
-//           else if(Objects.equals(message, "4")) {
-//                music4.start();
-//            }
-//            else if(Objects.equals(message, "3")) {
-//                music3.start();
-//            }
-//            else if(Objects.equals(message, "2")) {
-//                music2.start();
-//            }
-//            else if(Objects.equals(message, "1")) {
-//                music1.start();
-//            }
-//            music1.setOnCompletionListener(MediaPlayer::release);
-//            music2.setOnCompletionListener(MediaPlayer::release);
-//            music3.setOnCompletionListener(MediaPlayer::release);
-//            music4.setOnCompletionListener(MediaPlayer::release);
-//            music5.setOnCompletionListener(MediaPlayer::release);
             startLobby(lobbyDto.getQuizName());
             lobbyCounter.setText(message);
             if(Objects.equals(message, "0")) {

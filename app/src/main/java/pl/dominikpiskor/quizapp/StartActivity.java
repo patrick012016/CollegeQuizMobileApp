@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 
+/**
+ * The class responsible for rendering entry application animation
+ */
 public class StartActivity extends AppCompatActivity {
 
     @Override

@@ -28,30 +28,45 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * he class responsible for rendering the dynamic quiz with four answers (multiple correct)
+ */
 public class FourAnswersMultiFragment extends Fragment {
 
     private HubConnectivity hubConnectivity = HubConnectivity.getInstance(HUBURL);
+
+    /**
+     * Initializing items from the view
+     */
     CardView cardMultiA, cardMultiB, cardMultiC, cardMultiD;
     TextView answerMultiA, answerMultiB, answerMultiC, answerMultiD;
     String qeusetionId, mydataAnswers;
 
     public FourAnswersMultiFragment() { }
 
+    //==============================================================================================
+
     public static FourAnswersMultiFragment newInstance(String param1, String param2) {
         FourAnswersMultiFragment fragment = new FourAnswersMultiFragment();
         return fragment;
     }
+
+    //==============================================================================================
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    //==============================================================================================
+
     @Override
     public void onResume() {
         super.onResume();
         unlockCardResult();
     }
+
+    //==============================================================================================
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -111,8 +126,9 @@ public class FourAnswersMultiFragment extends Fragment {
             blockCardResult(cardMultiD);
             setScale(cardMultiD);
         });
-
     }
+
+    //==============================================================================================
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -120,16 +136,33 @@ public class FourAnswersMultiFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_four_answers_multi, container, false);
     }
 
+    //==============================================================================================
+
+    /**
+     * A helper method responsible for setting the size of the clicked card
+     * @param one checked card
+     */
     public void setScale(CardView one) {
         one.setScaleX(0.85f);
         one.setScaleY(0.85f);
     }
 
+    //==============================================================================================
+
+    /**
+     * A helper method responsible for blocking clicked card
+     * @param one unchecked card
+     */
     public void blockCardResult(CardView one) {
         one.setFocusable(false);
         one.setClickable(false);
     }
 
+    //==============================================================================================
+
+    /**
+     * A helper method responsible for resetting default view parameters
+     */
     public void unlockCardResult() {
         cardMultiA.setFocusable(true);
         cardMultiA.setClickable(true);
@@ -149,6 +182,12 @@ public class FourAnswersMultiFragment extends Fragment {
         cardMultiD.setScaleX(1);
     }
 
+    //==============================================================================================
+
+    /**
+     * The method responsible for sending answers selected by the user
+     * @param idAnswer id of the selected answer
+     */
     public void answerSend(int idAnswer) {
         String ipConnection = hubConnectivity.getIpConenction();
         OkHttpClient client = new OkHttpClient();
@@ -164,14 +203,10 @@ public class FourAnswersMultiFragment extends Fragment {
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
-            /*
-             * Jeśli połączenie nie zostanie nawiązane z serwerem
-             */
             @Override
             public void onFailure(Call call, IOException e) { e.printStackTrace();}
             @Override
             public void onResponse(Call call, Response response) throws IOException { }
         });
     }
-
 }

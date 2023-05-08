@@ -2,7 +2,6 @@ package pl.dominikpiskor.quizapp.GameFragments;
 
 import static pl.dominikpiskor.quizapp.Utils.Constans.HUBURL;
 
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -31,29 +30,45 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * The class responsible for rendering the dynamic quiz with four answers (one correct)
+ */
 public class FourAnswersFragment extends Fragment {
+
     private HubConnectivity hubConnectivity = HubConnectivity.getInstance(HUBURL);
+
+    /**
+     * Initializing items from the view
+     */
     CardView cardA, cardB, cardC, cardD;
     TextView answerA, answerB, answerC, answerD;
     String qeusetionId, mydataAnswers;
 
     public FourAnswersFragment() { }
 
+    //==============================================================================================
+
     public static FourAnswersFragment newInstance() {
         FourAnswersFragment fragment = new FourAnswersFragment();
         return fragment;
     }
+
+    //==============================================================================================
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    //==============================================================================================
+
     @Override
     public void onResume() {
         super.onResume();
         unlockCardResult();
     }
+
+    //==============================================================================================
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -76,7 +91,6 @@ public class FourAnswersFragment extends Fragment {
         answerB.setText(array[1]);
         answerC.setText(array[2]);
         answerD.setText(array[3]);
-
 
         cardA.setOnClickListener(v -> {
             view.performHapticFeedback(
@@ -116,17 +130,34 @@ public class FourAnswersFragment extends Fragment {
         });
     }
 
+    //==============================================================================================
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_four_answers, container, false);
     }
 
+    //==============================================================================================
+
+    /**
+     * A helper method responsible for setting the size of the clicked card
+     * @param one checked card
+     */
     public void setScale(CardView one) {
         one.setScaleX(0.85f);
         one.setScaleY(0.85f);
     }
 
+    //==============================================================================================
+
+    /**
+     * A helper method responsible for blocking clicked card
+     * @param one unchecked card
+     * @param two unchecked card
+     * @param three unchecked card
+     * @param four unchecked card
+     */
     public void blockCardResult(CardView one, CardView two, CardView three, CardView four) {
         one.setFocusable(false);
         one.setClickable(false);
@@ -138,6 +169,11 @@ public class FourAnswersFragment extends Fragment {
         four.setClickable(false);
     }
 
+    //==============================================================================================
+
+    /**
+     * A helper method responsible for resetting default view parameters
+     */
     public void unlockCardResult() {
         cardA.setFocusable(true);
         cardA.setClickable(true);
@@ -157,6 +193,12 @@ public class FourAnswersFragment extends Fragment {
         cardD.setScaleX(1);
     }
 
+    //==============================================================================================
+
+    /**
+     * The method responsible for sending answers selected by the user
+     * @param idAnswer id of the selected answer
+     */
     public void answerSend(int idAnswer) {
         String ipConnection = hubConnectivity.getIpConenction();
         OkHttpClient client = new OkHttpClient();
@@ -172,9 +214,6 @@ public class FourAnswersFragment extends Fragment {
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
-            /*
-             * Jeśli połączenie nie zostanie nawiązane z serwerem
-             */
             @Override
             public void onFailure(Call call, IOException e) { e.printStackTrace();}
             @Override
