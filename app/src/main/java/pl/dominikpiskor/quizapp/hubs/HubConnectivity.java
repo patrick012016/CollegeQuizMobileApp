@@ -43,7 +43,7 @@ public class HubConnectivity {
     }
 
     public void onGame(Consumer<String> onDisconnectingExpression) {
-        hubConnection.on("QUESTION_P2P",message-> {
+        hubConnection.on("QUESTION_MOBILE_P2P",message-> {
             onDisconnectingExpression.accept(message);
         }, String.class);
     }
