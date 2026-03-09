@@ -1,7 +1,7 @@
  
 # College Quiz [Quizazu] - Android Client 📱
 
-**Quizazu Android Client** constitutes the native mobile frontend for the **[College Quiz (Quizazu)](https://github.com/Lettulouz/CollegeQuiz)**. Designed as an interactive, real-time quiz platform, the client application enables synchronous participation in live quiz sessions, dynamic rendering of various question formats, and real-time state management for competitive gameplay.
+**Quizazu Android Client** is the mobile frontend for the **[College Quiz (Quizazu)](https://github.com/Lettulouz/CollegeQuiz)**. Designed as an interactive, real-time quiz platform, the client application enables synchronous participation in live quiz sessions, supports various question types, and real-time state management for competitive gameplay.
 
 As part of the broader Quizazu architecture which integrates a web client (ReactJS/Razor) and a centralized backend service (ASP.NET C# MVC & WebAPI) - this repository contains the source code for the native Android application implemented in Java.
 
@@ -9,7 +9,7 @@ As part of the broader Quizazu architecture which integrates a web client (React
 ##  Features
 
 * **Secure authentication & Auto-login:** Users log in via a REST API, utilizing JWT (JSON Web Tokens) to secure API calls and quiz room entries. The resulting token is securely stored locally to enable auto-login, bypassing the login screen on subsequent app launches.
-* **Real-time gameplay sync:** Powered by Microsoft SignalR for zero-latency bidirectional communication. The app reacts instantly to server hubs like `onGame`, `onQuestionTimer`, `onCorrectAnswer`, and `onQuestionResult`.
+* **Real-time gameplay sync:** Powered by Microsoft SignalR for low-latency bidirectional communication. The app reacts instantly to server hubs like `onGame`, `onQuestionTimer`, `onCorrectAnswer`, and `onQuestionResult`.
 * **Dynamic game modes:** The app dynamically renders native UI fragments based on the incoming question type. Supported modes include:
     * `SINGLE_FOUR_ANSWERS` (4 Options)
     * `MULTIPLE_FOUR_ANSWERS` (Multiple Choice)
@@ -17,7 +17,7 @@ As part of the broader Quizazu architecture which integrates a web client (React
     * `TRUE_FALSE` (True / False)
     * `RANGE` (Range Slider Questions)
 
-* **Quick join via QR code:** Integrated with the `Quickie` library for fast and seamless lobby joining via camera.
+* **Quick join via QR code:** Integrated with the `Quickie` library for fast lobby joining via camera.
 * **Live timers & Results:** Synchronized countdown timers and immediate visual feedback on correct/incorrect answers directly on the device.
 
 ## Built with
@@ -37,14 +37,14 @@ As part of the broader Quizazu architecture which integrates a web client (React
 
 ## Architecture & App flow
 
-The application flow is broken down into modular, purpose-driven Activities:
+The application flow is broken down into modular, core activities:
 
-1. **`StartActivity`**: Displays a full-screen entry animation (Splash Screen) that transitions after a 3-second delay.
-2. **`MainActivity`**: Manages user authorization. It utilizes `MotionLayout` for UI state transitions during network calls and handles invalid credentials gracefully.
+1. **`StartActivity`**: Displays a splash screen while the app initializes.
+2. **`MainActivity`**: Manages user authorization. It utilizes `MotionLayout` for UI state transitions during network calls and handles invalid credentials.
 3. **`MenuActivity`**: The main hub post-login. It hosts the `BottomNavigationView` to swap out main application fragments and manages the logout sequence.
 4. **`LobbyActivity`**: Connects to the specific quiz room using a JWT-secured OkHttp request, then spins up the SignalR hub connection. It maintains a live countdown until the host starts the game.
 5. **`Quiz_Activity`**: The core gameplay engine. It listens to websocket events and dynamically injects the appropriate UI Fragments (e.g., `FourAnswersFragment`, `TrueFalseFragment`, `SliderFragment`) into its frame layouts depending on the `QuizDto` payload.
-6. **`ResultActivity`**: Displayed between questions or at the end of the quiz. It iterates through an array of `ResultDto` objects to dynamically inflate and render scorecards, highlighting point gains and current streaks.
+6. **`ResultActivity`**: Shows scorecards with point gains and streaks between questions or at the end of the quiz, using `ResultDto` data.
 
 ## Prerequisites & Setup
 
@@ -57,7 +57,6 @@ To build and run this project, you will need:
 1. Clone the repository:
     ```bash
     git clone https://github.com/patrick012016/CollegeQuizMobileApp.git
-
     ```
 
 
